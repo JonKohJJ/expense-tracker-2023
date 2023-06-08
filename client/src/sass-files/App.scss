@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+.typography{
+  height: 100vh;
+}
+.content{
+  display: flex;
+}
+
+/* NAVBAR */
+.navbar{
+  display: flex;
+  flex-direction: column;
+  width: 12vw;
+  height: 100vh;
+  padding: 10px;
+  border-right: .5px solid grey;
+}
+
+/* PLANNER, TRACKER & DASHBOARD */
+.component{
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px 10px 10px;
+}
+
+
+// .planner-table{
+//   border-collapse: collapse;
+// }
+// .planner-table tr td:first-of-type{
+//   min-width: 250px;
+// }
+// .planner-table tr:nth-child(-n+3) td:first-of-type{
+//   text-align: right;
+//   padding-right: 25px;
+// }
+// .period-headers{
+//   min-width: 60px;
+//   text-align: center;
+//   /* border: .25px solid black; */
+// }
+// .empty-row{
+//   height: 25px;
+// }
+// .planner-table tr.data td:not(:first-child){
+//   text-align: right;
+// }

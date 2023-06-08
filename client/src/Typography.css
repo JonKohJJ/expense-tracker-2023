@@ -1,0 +1,70 @@
+:root {
+    /* Typography */
+    --typography-scale: 1.125;
+    --base-font-size: 16px;
+
+    /* Typography Calculations */
+    --font-size-smaller-caption: calc(var(--font-size-caption) / var(--typography-scale));
+    --font-size-caption: calc(var(--base-font-size) / var(--typography-scale));
+
+    --font-size-h5: calc(var(--base-font-size) * var(--typography-scale));
+    --font-size-h4: calc(var(--font-size-h5) * var(--typography-scale));
+    --font-size-h3: calc(var(--font-size-h4) * var(--typography-scale));
+    --font-size-h2: calc(var(--font-size-h3) * var(--typography-scale));
+    --font-size-h1: calc(var(--font-size-h2) * var(--typography-scale));
+    --font-size-title: calc(var(--font-size-h1) * var(--typography-scale));
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    :root {
+        --typography-scale: 1.135
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    :root {
+        --typography-scale: 1.15
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    :root {
+        --typography-scale: 1.2
+    }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    :root {
+        --typography-scale: 1.25
+    }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 2500px) {
+    :root {
+        --typography-scale: 1.35
+    }
+}
+
+  /* Typography */
+.typography p{margin-bottom: 20px;}
+.base-text{
+    line-height: 1.618em;
+}
+.base-text.bold{
+    font-weight: 500;
+}
+.headers{
+    line-height: 1.2em;
+    font-weight: 500;
+}
+.headers.title {font-size: var(--font-size-title)}
+.headers.h1 {font-size: var(--font-size-h1)}
+.headers.h2 {font-size: var(--font-size-h2)}
+.headers.h3 {font-size: var(--font-size-h3)}
+.headers.h4 {font-size: var(--font-size-h4)}
+.headers.h5 {font-size: var(--font-size-h5)}
+.caption{font-size: var(--font-size-caption)}
+.smaller-caption{font-size: var(--font-size-smaller-caption)}

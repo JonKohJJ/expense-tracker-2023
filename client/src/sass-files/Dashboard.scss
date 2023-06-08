@@ -1,0 +1,32 @@
+// DASHBOARD CARDS
+.dashboard-cards-container{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+
+    .card{
+        border: 1px solid black;
+        padding: 15px 20px;
+        margin-right: 40px;
+        border-radius: 12px;
+
+        .card-flex{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            div{
+                text-align: elft
+                ;
+            }
+            
+            .caption{
+                line-height: normal;
+            }
+        }
+    }
+    .card:last-of-type{
+        margin-right: 0px;
+    }
+
+}
