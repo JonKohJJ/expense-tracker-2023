@@ -13,14 +13,17 @@ router.get("/", (req,res) => {
         c.category_name, 
         r.amount, 
         r.details,
-        r.created_at 
+        r.created_at
         
         from records r
         inner join types t
         on r.type_id = t.type_id
         inner join categories c
         on r.category_id = c.category_id
-        order by r.created_at;
+        order by 
+            r.record_date,
+            r.created_at
+
     `
     db.query(q, (err, data) => {
         if(err){

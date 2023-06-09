@@ -29,4 +29,18 @@
         margin-right: 0px;
     }
 
+
+    // filters
+    .filter{
+        margin-bottom: 10px;
+
+        select{
+            font-size: var(--font-size-caption);
+        }
+    }
+    .filter:last-of-type{
+        margin-bottom:  0;
+    }
+
+
 }
