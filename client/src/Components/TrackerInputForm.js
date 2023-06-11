@@ -71,14 +71,6 @@ export default function TrackerInputForm({
                 <input 
                     ref={ref_record_date}
                     type='date'
-                    // type="text"
-                    // placeholder="select date"
-                    // onFocus={
-                    //     (e)=> {
-                    //         e.currentTarget.type = "date";
-                    //         e.currentTarget.focus();
-                    //         }
-                    // }
                     min="2023-01-01" 
                     max="2030-12-31"
                     required

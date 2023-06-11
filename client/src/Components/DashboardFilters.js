@@ -1,29 +1,43 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
-export default function DashboardFilters() {
+export default function DashboardFilters({
+    fetchDashboardData,
+    dashboardFilterMonths, 
+    dashboardFilterYears
+}) {
+
+    const ref_filter_year = useRef();
+    const ref_filter_month = useRef();
+    
+    function handleFilters(){
+        fetchDashboardData(ref_filter_year.current.value, ref_filter_month.current.value);
+    }
+
   return (
     <div className='dashboard-filters'>
 
         <div className='filter'>
             <p className="base-text caption">Year:</p>
-            <select>
-                <option selected disabled hidden>chose year</option> 
-                <option value='Current Year'>Current Year</option>
-                <option value='option-1'>Option 1</option>
-                <option value='option-2'>Option 2</option>
-                <option value='option-3'>Option 3</option>
+            <select onChange={handleFilters} ref={ref_filter_year}>
+
+                <option selected value={new Date().getFullYear()}>Current Year</option>
+
+                {dashboardFilterYears.map(year => (
+                    <option value={year.year} key={year.year}>{year.year}</option>
+                ))}
             </select>
         </div>
         
 
         <div className='filter'>
             <p className="base-text caption">Month:</p>
-            <select>
-                <option selected disabled hidden>choose month</option> 
-                <option value='Current Month'>Current Month</option>
-                <option value='option-1'>Option 1</option>
-                <option value='option-2'>Option 2</option>
-                <option value='option-3'>Option 3</option>
+            <select onChange={handleFilters} ref={ref_filter_month}>
+
+                <option value={new Date().getMonth() + 1}>Current Month</option>
+
+                {dashboardFilterMonths.map(month => (
+                    <option value={month.months_numerical} key={month.months_numerical}>{month.months_string}</option>
+                ))}
             </select>
         </div>
         
