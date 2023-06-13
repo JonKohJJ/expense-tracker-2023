@@ -19,7 +19,7 @@
 .navbar{
   display: flex;
   flex-direction: column;
-  width: 12vw;
+  min-width: 12vw;
   height: 100vh;
   padding: 10px;
   border-right: .5px solid grey;

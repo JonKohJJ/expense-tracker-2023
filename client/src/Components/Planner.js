@@ -7,30 +7,30 @@ import '../sass-files/Planner.scss';
 export default function Planner() {
 
 
-  const [headerData, setHeaderData] = useState([]);
+  // const [headerData, setHeaderData] = useState([]);
 
-  useEffect(() => {
-    const fetchYears = async () => {
-      try{
-        const res = await axios.get("http://localhost:8800/planner/getYears");
-        setHeaderData(res.data);
-      }catch(err){
-        console.log(err);
-      }
-    }
-    fetchYears();
-  }, []);
+  // useEffect(() => {
+  //   const fetchYears = async () => {
+  //     try{
+  //       const res = await axios.get("http://localhost:8800/planner/getYears");
+  //       setHeaderData(res.data);
+  //     }catch(err){
+  //       console.log(err);
+  //     }
+  //   }
+  //   fetchYears();
+  // }, []);
 
 
   // GET RESPECTIVE MONTHS FOR EACH YEAR
-  headerData.map(async (item, index) => {
-    try{
-      const res = await axios.get("http://localhost:8800/planner/getMonths/" + item.year);
-      headerData[index] = {...headerData[index], "months":res.data}
-    }catch(err){
-      console.log(err);
-    }
-  });
+  // headerData.map(async (item, index) => {
+  //   try{
+  //     const res = await axios.get("http://localhost:8800/planner/getMonths/" + item.year);
+  //     headerData[index] = {...headerData[index], "months":res.data}
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  // });
 
 
   //console.log("Header Data: ", headerData);
@@ -49,10 +49,10 @@ export default function Planner() {
         {year: 2023, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]},
         {year: 2024, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
       ],
-      buudgets: [
-        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120],
-        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120],
-        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120]
+      budgets: [
+        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""],
+        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""],
+        [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""]
       ]
     },
     {
@@ -66,12 +66,17 @@ export default function Planner() {
         {year: 2023, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]},
         {year: 2024, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
       ],
-      buudgets: [
-        [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240],
-        [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240]
+      budgets: [
+        [20, 20, 20, 20, 20, 2000.54, 20, 20, 20, 20, 20, 20, 240, "", 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, ""],
+        [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, "", 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, ""]
       ]
     }
   ]
+
+  // X categories
+  // Y years
+
+  // BUDGETS / X of Sub Arrays / Y*14 VALUES in each Sub Array
 
 
 
@@ -82,20 +87,19 @@ export default function Planner() {
       <p className="headers h4">Planner</p>
 
 
-      <table>
         {data.map(item => {
           console.log(item);
           return(
-            <div className='type-div'>
+            <div key={item.type_id} className='type-div'>
 
               <tr className='column-headers'>
-                <td>{item.type_name}</td>
+                <td className='row-headers'>{item.type_name}</td>
                 <td className='empty-td'></td>
 
                 {item.periods.map(period => {
 
                   return(
-                    <div className='period-div'>
+                    <div key={period.year} className='period-div'>
                       {period.months.map(month => (
                         <td>{month}</td>  
                       ))}
@@ -103,13 +107,28 @@ export default function Planner() {
                       <td className='empty-td'></td>
                     </div>
                   )
-                  
+
                 })}
               </tr>
 
-              <div className='table-body'>
+              {item.categories.map((category, index) => {
 
-              </div>
+                return(
+                  <tr className='table-body-row'>
+
+                    <td className='row-headers'><p className="base-text caption">{category.category_name}</p></td>
+                    <td className='empty-td'></td>
+
+                    {item.budgets[index].map((budget, i) => (
+                        budget === "" ? 
+                          <td key={"empty-key"} className='empty-td'></td> : 
+                          <td key={budget}><p className="base-text caption">{budget}</p></td>
+                    ))}
+              
+                  </tr>
+                )
+
+              })}
 
               <div className='table-totals'>
 
@@ -118,7 +137,6 @@ export default function Planner() {
             </div>
           )
         })}
-      </table>
 
     </div>
   )
