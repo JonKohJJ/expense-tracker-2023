@@ -23,8 +23,6 @@ export default function Dashboard() {
     fetchDashboardData(new Date().getFullYear(), new Date().getMonth() + 1);
   }, []);
 
-  console.log("dashboardData", dashboardData);
-
   // reformat fetch result into an object. Previously was an array of objects
   let dashboardData_formatted = {}
   dashboardData.map(item => {
@@ -34,7 +32,7 @@ export default function Dashboard() {
   dashboardData_formatted["debit_balance"] = (dashboardData_formatted["Income"] - dashboardData_formatted["Savings"]) - dashboardData_formatted["Expenses (Debit)"]
 
 
-  // FETCH Dashboard Filters - to be passed down to DashboardFitlers component
+  // FETCH Dashboard Filters MONTHS - to be passed down to DashboardFitlers component
   const [dashboardFilterMonths, setDashboardFilterMonths] = useState([]);
   useEffect(() => {
     const fetchDashboardFilterMonths = async () => {
@@ -49,7 +47,7 @@ export default function Dashboard() {
   }, []);
 
 
-  // FETCH Dashboard Filters - to be passed down to DashboardFitlers component
+  // FETCH Dashboard Filters YEARS - to be passed down to DashboardFitlers component
   const [dashboardFilterYears, setDashboardFilterYears] = useState([]);
   useEffect(() => {
     const fetchDashboardFilterYears = async () => {

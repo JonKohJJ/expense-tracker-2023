@@ -106,8 +106,16 @@ router.get("/savings", (req,res) => {
 });
 
 
-router.get("/periods", (req,res) => {
-    const q = "select * from periods";
+
+
+
+router.get("/getYears", (req,res) => {
+    const q = `
+        select 
+        year(period_id) as year
+        from periods
+        group by year(period_id);
+    `;
     db.query(q, (err, data) => {
         if(err){
             return res.json(err)
@@ -116,5 +124,43 @@ router.get("/periods", (req,res) => {
         }
     });
 });
+
+
+router.get("/getMonths/:year", (req,res) => {
+    const year = req.params.year;
+    const q = `
+        select 
+        month(period_id) as month,
+        left(monthname(period_id), 3) as month_name
+        from periods 
+        where year(period_id) = ?
+    `;
+    db.query(q, [year], (err, data) => {
+        if(err){
+            return res.json(err)
+        }else{
+            return res.json(data);
+        }
+    });
+});
+
+
+router.get("/getHeaderData", (req,res) => {
+    const q = `
+        select 
+        month(period_id)
+        from periods 
+        where year(period_id) = ?
+    `;
+    db.query(q, (err, data) => {
+        if(err){
+            return res.json(err)
+        }else{
+            return res.json(data);
+        }
+    });
+});
+
+
 
 module.exports = router;
