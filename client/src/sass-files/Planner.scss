@@ -17,7 +17,8 @@
     min-width: 200px;
     padding: 0 10px;
 }
-.column-headers .row-headers{
+.column-headers .row-headers,
+.table-totals .row-headers{
     padding: 0 5px;
 }
 
@@ -33,6 +34,10 @@
 .period-div{
     text-align: center;
 }
-.table-body-row td:not(.empty-td):not(.row-headers){
+.table-body-row td:not(.empty-td):not(.row-headers),
+.table-totals td:not(.empty-td):not(.row-headers){
     text-align: right;
+    padding: 0 5px;
 }
+
+
