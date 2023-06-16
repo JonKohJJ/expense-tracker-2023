@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
+
+import PlannerColumnHeaders from './PlannerColumnHeaders';
+import PlannerBodyRow from './PlannerBodyRow';
 import PlannerPeriods from './PlannerPeriods';
 
 import '../sass-files/App.scss';
@@ -9,76 +12,39 @@ import '../sass-files/Planner.scss';
 
 export default function Planner() {
 
-  // const data = [
-  //   {
-  //     type_id: 1,
-  //     type_name: "Income",
-  //     categories: [
-  //       { category_id:1, category_name: "Employment (Jonathan)" },
-  //       { category_id:2, category_name: "Employment (Joy)" },
-  //       { category_id:3, category_name: "Paynow Transfers" }
-  //     ],
-  //     periods: [
-  //       {year: 2023, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]},
-  //       {year: 2024, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
-  //     ],
-  //     budgets: [
-  //       [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""],
-  //       [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""],
-  //       [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, "", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, ""]
-  //     ],
-  //     total: {
-  //       name: "Total", totals: [30,30,30,30,30,30,30,30,30,30,30,30,360,"", 30,30,30,30,30,30,30,30,30,30,30,30,360,""]
-  //     }
-  //   },
-  //   {
-  //     type_id: 2,
-  //     type_name: "Savings",
-  //     categories: [
-  //       { category_id:1, category_name: "Combined Savings" },
-  //       { category_id:2, category_name: "Gear Savings" }
-  //     ],
-  //     periods: [
-  //       {year: 2023, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]},
-  //       {year: 2024, months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
-  //     ],
-  //     budgets: [
-  //       [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, "", 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, ""],
-  //       [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, "", 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 240, ""]
-  //     ],
-  //     total: {
-  //       name: "Total", totals: [40,40,40,40,40,40,40,40,40,40,40,40,480,"", 40,40,40,40,40,40,40,40,40,40,40,40,480,""]
-  //     }
-  //   }
-  // ]
+
+  // GET BODY DATA
+  const [bodyData, setBodyData] = useState([]);
+  useEffect(() => {
+    const fetchBodyData = () => {
+      try{
+        const res = axios.get("http://localhost:8800/planner/getTypes");
+        res.then((values) => {
+          setBodyData(values.data);
+
+          // fetch respective categories here
+          const promises = values.data.map(async(item, index) => {
+            const res = await axios.get("http://localhost:8800/planner/getCategories/" + item.type_id);
+            return {...item, categories:res.data}
+          })
+
+          Promise.all(promises)
+            .then((result)=>{
+              setBodyData(result);
+            })
+            .catch((err) => {
+              console.log("error: ", err);
+            })
 
 
-  // // 01. GET TYPES
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   const fetchTypes = async () => {
-  //     try{
-  //       const res = await axios.get("http://localhost:8800/planner/getTypes");
-  //       setData(res.data);
-  //     }catch(err){
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchTypes();
-  // }, []);
+        })
+      }catch(err){
+        console.log(err);
+      }
+    }
+    fetchBodyData();
+  }, []);
 
-
-  // // 02. GET CATEGORIES FOR EACH TYPE
-  // data.map(async (type, index) => {
-  //   try{
-  //     const res = await axios.get("http://localhost:8800/planner/getCategories/" + type.type_id);
-  //     data[index] = {...data[index], "categories": res.data}
-  //   }catch(err){
-  //     console.log(err);
-  //   }
-  // })
-
-  // console.log(data);
 
   // GET PERIODS
   const [periods, setPeriods] = useState([]);
@@ -117,77 +83,8 @@ export default function Planner() {
     fetchPeriods();
   }, []);
 
+  // console.log("bodyData", bodyData);
 
-
-
-  // GET RESPECTIVE MONTHS and UPDATE State - Cannot just add
-
-  // useEffect(() => {
-  //   const fetchMonths = () => {
-  //     console.log("inside fetch months", periods);
-  //     try{
-  //       console.log("inside try", periods);
-  //       periods.map((period, index) => {
-
-  //         console.log("inside mapping");
-  //         const res = axios.get("http://localhost:8800/planner/getMonths/" + period.year);
-      
-  //         // not the way to update state 
-  //         // periods[index] = {...periods[index], "months": res.data}
-      
-  //         // return {...period, "months": res.data}
-      
-  //         console.log("res: ", res);
-  //         setPeriods({...periods[index], "months": res.data});
-  //       })
-
-  //     }catch(err){
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchMonths();
-  // }, []);
-
-
-  // Promise.all(promises)
-  //   .then((values) => {
-  //     console.log("values: ", values);
-  //   })
-
-
-  //console.log("periods", periods);
-  
-
-
-
-  // GET MONTH FOR EACH YEAR
-  // useEffect(() => {
-  //     setPeriods(prevState => {
-
-  //         console.log(prevState);
-
-  //         // const newState = prevState.map(async (period, index) => {
-
-  //         //   console.log("why isn't this running?");
-            
-  //         //   const res = await axios.get("http://localhost:8800/planner/getMonths/" + period.year);
-  //         //   return {...period[index], "months": res.data};
-
-  //         // });
-
-  //     });
-  // },[])
-  
-  // console.log("PERIODS: ", periods);
-
-
-  
-
-  // // 04.5. ADD PERIODS TO DATA
-  // data.map((d, index) => {
-  //   data[index] = {...data[index], "periods": periods}
-  // });
-  // // console.log("periods: ", data);
 
 
 
@@ -233,26 +130,6 @@ export default function Planner() {
   //   }
 
   // }
-
-
-
-
-  // const [rawData, setRawData] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchTableData = async (type_name) => {
-  //     try{
-  //       const res = await axios.get("http://localhost:8800/planner/getTableData/" + type_name);
-  //       setRawData(res.data);
-  //     }catch(err){
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchTableData("Income");
-  // }, []);
-
-  // console.log(rawData);
-
   
 
 
@@ -264,9 +141,71 @@ export default function Planner() {
   return (
     <div className='component planner'>
       <p className="headers h4">Planner</p>
-      {/* <button onClick={updateState}>Update state</button> */}
-        
-        <PlannerPeriods periods={periods}/>
+
+        <div className='tables-wrapper'>
+          {bodyData.map(type => {
+            return(
+              <>
+                <table key={type.type_id} className={'types-table ' + type.type_name}>
+
+                  <thead>
+                    <PlannerColumnHeaders type={type} periods={periods}/>
+                  </thead>
+
+                  <tbody>
+                    { type.categories === undefined ? 
+                        <></> : 
+                        type.categories.map(category => (
+                          // PlannerBodyRow - category name, budgets
+                          <PlannerBodyRow category={category}/>
+                        ))
+                    }
+                  </tbody>
+
+                  <tfoot>
+                    <tr>
+                      <td>total</td>
+                      <td className='empty-td'></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td className='empty-td'></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td className='empty-td'></td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <button className='btn add-category'>Add</button>
+                
+              </>
+            )
+          })}
+        </div>
+
+
+
 
         
 

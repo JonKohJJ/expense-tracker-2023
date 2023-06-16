@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import React from 'react'
 
 export default function PlannerPeriods({periods}) {
 
@@ -10,21 +9,20 @@ export default function PlannerPeriods({periods}) {
     // ))} 
 
     return (
-        <div className='periods'>
+        <>
             {periods.map(period => {
                 return(
-                    <table key={period.year} className='period'>  
-                        <tr>
-                            {period.months === undefined ? <></> : 
-                                period.months.map(month => (
-                                    <td key={month.period_id}>{month.month_name_short}</td>
-                                ))
-                            }
-                            <td>{period.year}</td>
-                        </tr>
-                    </table>
+                    <>
+                    {period.months === undefined ? <></> : 
+                        period.months.map(month => (
+                            <td key={month.period_id} className={month.period_id}>{month.month_name_short}</td>
+                        ))
+                    }
+                    <td>{period.year}</td>
+                    <td className='empty-td'></td>
+                    </>
                 )
             })}
-        </div>
+        </>
     )
 }

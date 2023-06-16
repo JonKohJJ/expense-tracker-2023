@@ -1,18 +1,48 @@
-.periods{
-    display: flex;
+.tables-wrapper{
+    margin-top: 10px;
+}
 
-    .period{
-        margin-right: 20px;
+.types-table{
 
-        &:last-of-type{
-            margin-right: 0;
-        }
-
-        & tr{
-            outline: 0.25px solid grey;
-        }
-        & td{
-            padding: 5px;
+    thead{
+        background-color: rgba(128, 128, 128, 0.5);
+        .empty-td{
+            background-color: white;
         }
     }
+
+    border-collapse: collapse;
+    margin-top: 50px;
+    margin-bottom: 10px;
+
+    &:first-of-type{
+        margin-top: 0;
+    }
+    &:last-of-type{
+        margin-bottom: 0;
+    }
+
+    td{
+        border: 0.25px solid black;
+        padding: 0 5px;
+
+        &.row-headers{
+            min-width: 250px;
+
+            &.categories{
+                padding: 0 0 0 10px;
+            }
+
+        }
+
+        &.empty-td{
+            min-width: 20px;
+            border: none;
+        }
+    }
+}
+
+
+.btn{
+    cursor: pointer;
 }
