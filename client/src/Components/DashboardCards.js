@@ -22,10 +22,27 @@ export default function DashboardCards({
             <div className='card'>
                 <p className="base-text caption">Total Savings</p>
                 <p className="base-text">${dashboardData_formatted.Savings === undefined ? 0 : dashboardData_formatted.Savings}</p>
-                <div>
-                    <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income,</p>
-                    <p className="base-text smaller-caption">good job!</p>
-                </div>
+
+                {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2) < 20 
+                ? 
+                    <div>
+                        <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income,</p>
+                        <p className="base-text smaller-caption">you can do better!</p>
+                    </div>
+                :
+                    isNaN(((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2))
+                    ?
+                        <div>
+                            <p className="base-text smaller-caption">You are saving 0% of your income,</p>
+                            <p className="base-text smaller-caption">good job!</p>
+                        </div>
+                    :
+                        <div>
+                            <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income,</p>
+                            <p className="base-text smaller-caption">good job!</p>
+                        </div>
+                }
+                
             </div>
 
             <div className='card'>

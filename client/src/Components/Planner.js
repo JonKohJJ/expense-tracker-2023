@@ -14,6 +14,7 @@ export default function Planner() {
 
 
   // GET BODY DATA
+  const [temp, setTemp] = useState([]);
   const [bodyData, setBodyData] = useState([]);
   useEffect(() => {
     const fetchBodyData = () => {
@@ -29,13 +30,35 @@ export default function Planner() {
           })
 
           Promise.all(promises)
-            .then((result)=>{
+            .then((result) => {
+              console.log("categories: ", result);
               setBodyData(result);
+              return result;
             })
+            .then((result) => {
+              // fetch budgets here
+              const outer_promises = result.map((type, index) => {
+
+                const inner_promises = type.categories.map(async(category, index) => {
+                  const res = await axios.get("http://localhost:8800/planner/getBudgets/" + category.category_id);
+                  // console.log("values: ", values.data);
+                  return {...category, budgets:res.data}
+                }); // end of inner promise
+
+                Promise.all(inner_promises)
+                  .then((result) => {
+                    console.log("budgets: ", result);
+                    // setTemp(prev => [...prev, {...type, categories:result}]) 
+                  })
+                  .catch((err) => {console.log("err: ", err);})
+              })
+
+              // console.log("temp: ", temp);
+
+            }) 
             .catch((err) => {
               console.log("error: ", err);
             })
-
 
         })
       }catch(err){
@@ -44,6 +67,9 @@ export default function Planner() {
     }
     fetchBodyData();
   }, []);
+
+  // console.log("temp: ", temp);
+  // console.log("bodyData: ", bodyData);
 
 
   // GET PERIODS
@@ -82,8 +108,6 @@ export default function Planner() {
     }
     fetchPeriods();
   }, []);
-
-  // console.log("bodyData", bodyData);
 
 
 
@@ -130,9 +154,6 @@ export default function Planner() {
   //   }
 
   // }
-  
-
-
 
 
 
