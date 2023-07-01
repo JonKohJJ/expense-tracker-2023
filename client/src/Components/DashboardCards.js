@@ -4,7 +4,8 @@ import '../sass-files/Dashboard.scss'
 import DashboardFilters from './DashboardFilters';
 
 export default function DashboardCards({
-    fetchDashboardData,
+    fetchDashboardCardData,
+    fetchDashboardBodyData,
     dashboardData_formatted, 
     dashboardFilterMonths, 
     dashboardFilterYears
@@ -59,7 +60,8 @@ export default function DashboardCards({
 
             <div>
                 <DashboardFilters
-                    fetchDashboardData={fetchDashboardData}
+                    fetchDashboardCardData={fetchDashboardCardData}
+                    fetchDashboardBodyData={fetchDashboardBodyData}
                     dashboardFilterMonths={dashboardFilterMonths}
                     dashboardFilterYears={dashboardFilterYears}
                 />

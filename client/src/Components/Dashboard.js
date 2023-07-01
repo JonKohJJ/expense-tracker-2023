@@ -4,28 +4,60 @@ import axios from 'axios';
 import '../sass-files/App.scss';
 
 import DashboardCards from './DashboardCards';
+import DashboardBody from './DashboardBody';
 
 export default function Dashboard() {
 
 
-  // FETCH Dashboard Cards Information - to be passed down to DashboardCards component
-  const [dashboardData, setDashboardData] = useState([]);
-  const fetchDashboardData = async (filtered_year, filtered_month) => {
+  // FETCH Dashboard CARDS Information - to be passed down to DashboardCards component
+  const [dashboardCardData, setDashboardCardData] = useState([]);
+  const fetchDashboardCardData = async (filtered_year, filtered_month) => {
     try{
-      const res = await axios.get("http://localhost:8800/getDashboardData/" + filtered_year + "&" + filtered_month );
-      setDashboardData(res.data);
+      const res = await axios.get("http://localhost:8800/getDashboardCardData/" + filtered_year + "&" + filtered_month );
+      setDashboardCardData(res.data);
     }catch(err){
       console.log(err);
     }
   }
+
+  // FETCH Dashboard BODY Information
+  const [dashboardBodyData, setDashboardBodyData] = useState([]);
+  const fetchDashboardBodyData = (filtered_year, filtered_month) => {
+    try{
+      // const res = await axios.get("http://localhost:8800/getDashboardBodyData/" + filtered_year + "&" + filtered_month );
+      // console.log("Body data: ", res.data);
+      // // setDashboardData(res.data);
+      
+      // fetch types and their respective categories and budgets
+      axios.get("http://localhost:8800/getTypes/")
+        .then((types) => {
+          // fetch categories (tracked and budget) for each type
+          const categories = types.data.map(async(type, index) => {
+            const res = await axios.get("http://localhost:8800/getCategories/" + filtered_year + "&" + filtered_month + "&" + type.type_id);
+            return {...type, categories:res.data}
+          })
+          Promise.all(categories)
+            .then((categories) => {
+              // console.log("categories (tracked & budget): ", categories);
+              setDashboardBodyData(categories);
+            })
+        })
+
+
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     // dashboard will always get the current year and month first
-    fetchDashboardData(new Date().getFullYear(), new Date().getMonth() + 1);
+    fetchDashboardCardData(new Date().getFullYear(), new Date().getMonth() + 1);
+    fetchDashboardBodyData(new Date().getFullYear(), new Date().getMonth() + 1);
   }, []);
 
   // reformat fetch result into an object. Previously was an array of objects
   let dashboardData_formatted = {}
-  dashboardData.map(item => {
+  dashboardCardData.map(item => {
     dashboardData_formatted[item.type_name] = item.total_amount;
   });
   // add debit balance to the object
@@ -67,11 +99,18 @@ export default function Dashboard() {
       <p className="headers h4">Dashboard</p>
 
       <DashboardCards
-        fetchDashboardData={fetchDashboardData}
+        fetchDashboardCardData={fetchDashboardCardData}
+        fetchDashboardBodyData={fetchDashboardBodyData}
         dashboardData_formatted={dashboardData_formatted}
         dashboardFilterMonths={dashboardFilterMonths}
         dashboardFilterYears={dashboardFilterYears}
       />
+
+      <DashboardBody 
+        dashboardBodyData={dashboardBodyData}
+      />
+
+
 
     </div>
   )

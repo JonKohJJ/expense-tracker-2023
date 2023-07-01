@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 
 export default function DashboardFilters({
-    fetchDashboardData,
+    fetchDashboardCardData,
+    fetchDashboardBodyData,
     dashboardFilterMonths, 
     dashboardFilterYears
 }) {
@@ -10,7 +11,8 @@ export default function DashboardFilters({
     const ref_filter_month = useRef();
     
     function handleFilters(){
-        fetchDashboardData(ref_filter_year.current.value, ref_filter_month.current.value);
+        fetchDashboardCardData(ref_filter_year.current.value, ref_filter_month.current.value);
+        fetchDashboardBodyData(ref_filter_year.current.value, ref_filter_month.current.value)
     }
 
   return (
