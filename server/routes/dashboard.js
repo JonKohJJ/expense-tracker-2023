@@ -11,13 +11,14 @@ router.get("/getDashboardCardData/:filtered_year&:filtered_month", (req,res) => 
     const q = `
         select
         t.type_name,
+        r.expenses_method,
         SUM(r.amount) as total_amount
         from records r
         inner join types t
         on r.type_id = t.type_id
         where year(r.record_date) = ?
         and month(r.record_date) = ?
-        group by t.type_name;
+        group by t.type_name, r.expenses_method;
     `
     db.query(q, [filtered_year, filtered_month], (err, data) => {
         if(err){
@@ -109,7 +110,6 @@ router.get("/getCategories/:filtered_year&:filtered_month&:type_id", (req,res) =
         }
     });
 });
-
 
 router.get("/getDashboardBodyData/:filtered_year&:filtered_month", (req,res) => {
 

@@ -9,6 +9,7 @@ router.get("/", (req,res) => {
         date_format(r.record_date, "%d-%b-%y") as record_date, 
         date_format(r.record_date, "%Y-%m-%d") as record_date_update_format, 
         t.type_name, 
+        r.expenses_method,
         t.type_id, 
         c.category_name, 
         r.amount, 

@@ -6,7 +6,9 @@ $details_width: 41%;
 $edit_width: 5%;
 $delete_width: 5%;
 
-
+.inline{
+    display: inline-block;
+}
 
 .tracker-table{
     width: 100%;

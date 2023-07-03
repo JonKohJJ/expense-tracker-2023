@@ -4,6 +4,7 @@
     --base-font-size: 16px;
 
     /* Typography Calculations */
+
     --font-size-smaller-caption: calc(var(--font-size-caption) / var(--typography-scale));
     --font-size-caption: calc(var(--base-font-size) / var(--typography-scale));
 

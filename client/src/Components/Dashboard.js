@@ -58,11 +58,12 @@ export default function Dashboard() {
   // reformat fetch result into an object. Previously was an array of objects
   let dashboardData_formatted = {}
   dashboardCardData.map(item => {
-    dashboardData_formatted[item.type_name] = item.total_amount;
+    if(item.type_name === "Expenses"){
+      dashboardData_formatted[item.type_name + item.expenses_method] = item.total_amount;
+    }else{
+      dashboardData_formatted[item.type_name] = item.total_amount;
+    }
   });
-  // add debit balance to the object
-  dashboardData_formatted["debit_balance"] = (dashboardData_formatted["Income"] - dashboardData_formatted["Savings"]) - dashboardData_formatted["Expenses (Debit)"]
-
 
   // FETCH Dashboard Filters MONTHS - to be passed down to DashboardFitlers component
   const [dashboardFilterMonths, setDashboardFilterMonths] = useState([]);

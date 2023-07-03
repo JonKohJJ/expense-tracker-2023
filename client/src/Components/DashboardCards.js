@@ -11,6 +11,8 @@ export default function DashboardCards({
     dashboardFilterYears
 }) {
 
+    console.log("dashboardData_formatted: ", dashboardData_formatted);
+
   return (
     <div>
         <div className='dashboard-cards-container'>
@@ -49,13 +51,13 @@ export default function DashboardCards({
             <div className='card'>
                 <p className="base-text caption">Debit Account Balance</p>
                 <p className="base-text">${
-                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["Expenses (Debit)"]) ? 0 : (dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["Expenses (Debit)"]
+                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) ? 0 : (dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]
                 }</p>
             </div>
 
             <div className='card'>
                 <p className="base-text caption">Amount charged to Credit Card</p>
-                <p className="base-text">${dashboardData_formatted["Expenses (Credit)"] === undefined ? 0 : dashboardData_formatted["Expenses (Credit)"]}</p>
+                <p className="base-text">${dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
             </div>
 
             <div>

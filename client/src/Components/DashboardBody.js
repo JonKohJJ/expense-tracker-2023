@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function DashboardBody({dashboardBodyData}) 
 {
-    console.log("dashboardBodyData: ", dashboardBodyData);
+    // console.log("dashboardBodyData: ", dashboardBodyData);
+    
   return (
     <div className='dashboard-body-container'>
         {dashboardBodyData.map((type, index) => {

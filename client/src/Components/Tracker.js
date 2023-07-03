@@ -63,49 +63,54 @@ export default function Tracker() {
   // FORM VALIDATION - to be passed down to TrackerInputForm & TrackerUpdateForm
   const formValidation = (userInputs) => {
 
+      console.log("userInputs: ", userInputs);
+
       let validationResult = {
           validation: false,
           message_date: "",
           message_type_id: "",
+          message_expenses_method: "",
           message_category_id: "",
           message_amount: "",
           message_details: ""
       };
 
-      if (userInputs.record_date === ''){
-          validationResult.message_date = "*empty date";
-      }
-      else if (userInputs.type_id === "select type"){
-          validationResult.message_type_id = "*empty type";
-      }
-      else if (userInputs.category_id === "select category"){
-          validationResult.message_category_id = "*empty category";
-      }
-      else if (userInputs.amount === ''){
-          validationResult.message_amount = "*empty amount";
-      }
-      else if (userInputs.details === ''){
-          validationResult.message_details = "*empty details";
-      }
-      // check if input contains .
-      else if (userInputs.amount.includes(".")){
-          if(userInputs.amount.split(".")[0].length > 4){
-              validationResult.message_amount = "*up to '0000";
-          }
-          else if(userInputs.amount.split(".")[1].length > 2){
-              validationResult.message_amount = "*only 2.dps";
-          }
-          else{
-              validationResult.validation = true;
-          }
-      }
-      else if (!userInputs.amount.includes(".")){
-          if(userInputs.amount.length > 4){
-              validationResult.message_amount = "*up to '0000";
-          }else{
-              validationResult.validation = true;
-          }
-      }
+      
+
+      // if (userInputs.record_date === ''){
+      //     validationResult.message_date = "*empty date";
+      // }
+      // else if (userInputs.type_id === "select type"){
+      //     validationResult.message_type_id = "*empty type";
+      // }
+      // else if (userInputs.category_id === "select category"){
+      //     validationResult.message_category_id = "*empty category";
+      // }
+      // else if (userInputs.amount === ''){
+      //     validationResult.message_amount = "*empty amount";
+      // }
+      // else if (userInputs.details === ''){
+      //     validationResult.message_details = "*empty details";
+      // }
+      // // check if input contains .
+      // else if (userInputs.amount.includes(".")){
+      //     if(userInputs.amount.split(".")[0].length > 4){
+      //         validationResult.message_amount = "*up to '0000";
+      //     }
+      //     else if(userInputs.amount.split(".")[1].length > 2){
+      //         validationResult.message_amount = "*only 2.dps";
+      //     }
+      //     else{
+      //         validationResult.validation = true;
+      //     }
+      // }
+      // else if (!userInputs.amount.includes(".")){
+      //     if(userInputs.amount.length > 4){
+      //         validationResult.message_amount = "*up to '0000";
+      //     }else{
+      //         validationResult.validation = true;
+      //     }
+      // }
       return validationResult;
   }
 
@@ -206,7 +211,12 @@ export default function Tracker() {
 
             <tr key={record.record_id}>
               <td><p className="base-text caption">{record.record_date}</p></td>
-              <td><p className="base-text caption">{record.type_name}</p></td>
+              <td>
+                { record.type_name === 'Expenses' ? 
+                    <p className="base-text caption">{record.type_name} <i className="base-text smaller-caption inline"> - {record.expenses_method}</i></p> :
+                    <p className="base-text caption">{record.type_name}</p>
+                }
+              </td>
               <td><p className="base-text caption">{record.category_name}</p></td>
               <td><p className="base-text caption">{record.amount}</p></td>
               <td><p className="base-text caption">{record.details}</p></td>
