@@ -27,6 +27,8 @@ export default function TrackerUpdateForm({
     setMessageDetails
 }) {
 
+    console.log("messageExpensesMethod: ", messageExpensesMethod);
+
     // run this code ONCE to fetch categories under a specific type
     useEffect(() => {
         fetchCategories(record.type_id);
@@ -36,7 +38,7 @@ export default function TrackerUpdateForm({
         e.preventDefault();
 
         const result = formValidation(formValues);
-        // console.log("result: ", result);
+        console.log("result: ", result);
 
         try{
             if(result.valid_date 
@@ -50,7 +52,7 @@ export default function TrackerUpdateForm({
             }else{
                 setMessageDate(result.message_date);
                 setMessageType(result.message_type_id);
-                setMessageExpensesMethod(result.messageExpensesMethod);
+                setMessageExpensesMethod(result.message_expenses_method);
                 setMessageCategory(result.message_category_id);
                 setMessageAmount(result.message_amount);
                 setMessageDetails(result.message_details);
@@ -71,7 +73,7 @@ export default function TrackerUpdateForm({
         details: record.details
     })
 
-    // console.log("formValues: ", formValues);
+    console.log("formValues: ", formValues);
 
     function handleChange(e){ 
         if(e.target.name === "type_id"){
