@@ -13,6 +13,9 @@ export default function TrackerInputForm({
     messageType, 
     setMessageType,
 
+    messageExpensesMethod,
+    setMessageExpensesMethod,
+
     messageCategory, 
     setMessageCategory,
 
@@ -24,59 +27,44 @@ export default function TrackerInputForm({
 
 }) {
 
-
-    // const ref_record_date = useRef(null);
-    // const ref_type_id = useRef(null);
-    // const ref_expenses_method = useRef(null);
-    // const ref_category_id = useRef(null);
-    // const ref_amount = useRef(null);
-    // const ref_details = useRef(null);
-
-    // async function onFormSubmit(e){
-    //     e.preventDefault();
-
-    //     const userInputs = {
-    //         "record_date": ref_record_date.current.value, 
-    //         "type_id": ref_type_id.current.value, 
-    //         "expenses_method": ref_expenses_method.current.value,
-    //         "category_id": ref_category_id.current.value, 
-    //         "amount": ref_amount.current.value, 
-    //         "details": ref_details.current.value
-    //     }
-
-    //     const result = formValidation(userInputs);
-        
-    //     try{
-    //         if(result.validation){
-    //             await axios.post("http://localhost:8800/tracker", userInputs);
-    //             window.location.reload(false);
-    //         }else{
-    //             setMessageDate(result.message_date);
-    //             setMessageType(result.message_type_id);
-    //             setMessageCategory(result.message_category_id);
-    //             setMessageAmount(result.message_amount);
-    //             setMessageDetails(result.message_details);
-    //             return;
-    //         }
-    //     }catch(err){
-
-    //     }
-    // }
-
     async function onFormSubmit(e){
         e.preventDefault();
-        console.log("formValues: ", formValues);
+        const result = formValidation(formValues);
+
+        // console.log("result: ", result)
+
+        try{
+            if(result.valid_date 
+                && result.valid_type_id 
+                && result.valid_expenses_method 
+                && result.valid_category_id
+                && result.valid_amount
+                && result.valid_details){
+                await axios.post("http://localhost:8800/tracker", formValues);
+                window.location.reload(false);
+            }else{
+                setMessageDate(result.message_date);
+                setMessageType(result.message_type_id);
+                setMessageExpensesMethod(result.message_expenses_method);
+                setMessageCategory(result.message_category_id);
+                setMessageAmount(result.message_amount);
+                setMessageDetails(result.message_details);
+                return;
+            }
+        }catch(err){
+
+        }
     }
 
     const [formValues, setFormValues] = useState({
         record_date: "",
         type_id: "",
+        type_name: "",
         expenses_method: "",
         category_id: "",
         amount: "",
         details: ""
     })
-
     function handleChange(e){ 
         setFormValues({ ...formValues, [e.target.name]:e.target.value })
 
@@ -84,18 +72,13 @@ export default function TrackerInputForm({
 
             if(e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text === "Expenses"){
                 setExpensesSelected(true);
-                setFormValues({ ...formValues, [e.target.name]:e.target.value, category_id:"" })
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text,category_id:"" })
             }else{
                 setExpensesSelected(false);
-                setFormValues({ ...formValues, [e.target.name]:e.target.value, category_id:"", expenses_method:"" })
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:"" })
             }
         }
     }
-
-    
-
-    
-
     // handle expenses method - only when user selects 'Expenses' then this additional form will appear
     const [expensesSelected, setExpensesSelected] = useState(false);
 
@@ -149,7 +132,7 @@ export default function TrackerInputForm({
                             <option value='Debit'>Debit</option>
                         </select> 
                         <p className='message expenses_method base-text smaller-caption'>
-                            {messageType}
+                            {messageExpensesMethod}
                         </p>
                     </>
                     :

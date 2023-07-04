@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 
 export default function TrackerUpdateForm({
     record, 
-    types, 
+    types,
     fetchCategories, 
     categories,
     formValidation,
@@ -13,6 +13,9 @@ export default function TrackerUpdateForm({
 
     messageType, 
     setMessageType,
+
+    messageExpensesMethod,
+    setMessageExpensesMethod,
 
     messageCategory, 
     setMessageCategory,
@@ -29,32 +32,25 @@ export default function TrackerUpdateForm({
         fetchCategories(record.type_id);
     }, []);
 
-    const ref_update_record_date = useRef(null);
-    const ref_update_type_id = useRef(null);
-    const ref_update_category_id = useRef(null);
-    const ref_update_amount = useRef(null);
-    const ref_update_details = useRef(null);
-
     async function onUpdateFormSubmit(e){
         e.preventDefault();
 
-        const userInputs = {
-            "record_date": ref_update_record_date.current.value, 
-            "type_id": ref_update_type_id.current.value, 
-            "category_id": ref_update_category_id.current.value, 
-            "amount": ref_update_amount.current.value, 
-            "details": ref_update_details.current.value
-        }
-
-        const result = formValidation(userInputs);
+        const result = formValidation(formValues);
+        // console.log("result: ", result);
 
         try{
-            if(result.validation){
-                await axios.put("http://localhost:8800/tracker/" + record.record_id, userInputs);
+            if(result.valid_date 
+                && result.valid_type_id 
+                && result.valid_expenses_method 
+                && result.valid_category_id
+                && result.valid_amount
+                && result.valid_details){
+                await axios.put("http://localhost:8800/tracker/" + record.record_id, formValues);
                 window.location.reload(false);
             }else{
                 setMessageDate(result.message_date);
                 setMessageType(result.message_type_id);
+                setMessageExpensesMethod(result.messageExpensesMethod);
                 setMessageCategory(result.message_category_id);
                 setMessageAmount(result.message_amount);
                 setMessageDetails(result.message_details);
@@ -65,17 +61,47 @@ export default function TrackerUpdateForm({
         }
     }
 
+    const [formValues, setFormValues] = useState({
+        record_date: record.record_date_update_format,
+        type_id: record.type_id,
+        type_name: record.type_name,
+        expenses_method: record.expenses_method,
+        category_id: record.category_id,
+        amount: record.amount.toString(),
+        details: record.details
+    })
+
+    // console.log("formValues: ", formValues);
+
+    function handleChange(e){ 
+        if(e.target.name === "type_id"){
+            if(e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text === "Expenses"){
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text,category_id:"" })
+            }else{
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:"" })
+            }
+        }
+        else{
+            console.log("handleChange: ", e.target);
+            setFormValues({ ...formValues, [e.target.name]:e.target.value })
+        }
+    }
+
+    const ref_expenses_methods = [
+        {expenses_method: "Credit"},
+        {expenses_method: "Debit"}
+    ]
 
   return (
     <tr className='updating-row'>
         <td>
             <input
-                ref={ref_update_record_date}
                 type='date'
-                defaultValue={record.record_date_update_format}
                 min="2023-01-01" 
                 max="2030-12-31"
-                required
+                name='record_date'
+                value={formValues.record_date}
+                onChange={handleChange}
             >
             </input>
             <p className='message record-date base-text smaller-caption'>
@@ -86,9 +112,12 @@ export default function TrackerUpdateForm({
 
         <td>
             <select 
-                ref={ref_update_type_id} 
-                onChange={(e) => { fetchCategories(e.target.value) }}
-                required
+                name='type_id'
+                value={formValues.type_id}
+                onChange={(e) => {
+                    fetchCategories(e.target.value);
+                    handleChange(e);
+                }}
             >
                 {types.map(type => (
                     record.type_name === type.type_name ? 
@@ -100,14 +129,38 @@ export default function TrackerUpdateForm({
             <p className='message type base-text smaller-caption'>
                 {messageType}
             </p>
+            {
+                // display the expenses method option only if 'Expenses' is selected
+                (formValues.type_name === 'Income' || formValues.type_name === 'Savings') ? <></> :
+                <>
+                    <select
+                        name='expenses_method'
+                        value={formValues.expenses_method}
+                        onChange={handleChange}
+                    >
+                        <option selected hidden required>select expenses method</option>
+                        {ref_expenses_methods.map(method => (
+                            record.expenses_method === method.expenses_method ? 
+                                <option key={method.expenses_method} value={method.expenses_method} selected>{method.expenses_method}</option> :
+                                <option key={method.expenses_method} value={method.expenses_method}>{method.expenses_method}</option>
+                        ))}
+                    </select>
+                    <p className='message expenses_method base-text smaller-caption'>
+                        {messageExpensesMethod}
+                    </p>
+                </>
+            }
+
         </td>
 
 
         <td>
-            <select 
-                ref={ref_update_category_id}
-                required
+            <select
+                name='category_id'
+                value={formValues.category_id}
+                onChange={handleChange}
             >
+                <option selected hidden>select category</option> 
                 {categories.map(category => (
                     record.category_name === category.category_name ? 
                         <option key={category.category_id} value={category.category_id} selected>{category.category_name}</option> :
@@ -122,12 +175,12 @@ export default function TrackerUpdateForm({
 
         <td>
             <input 
-                ref={ref_update_amount} 
+                name='amount'
+                value={formValues.amount}
+                onChange={handleChange}
                 placeholder='amount'
-                defaultValue={record.amount}
                 type='number'
                 min='0'
-                required
             >
             </input>
             <p className='message amount base-text smaller-caption'>
@@ -137,10 +190,11 @@ export default function TrackerUpdateForm({
 
 
         <td>
-            <input 
-                ref={ref_update_details} 
+            <input
+                name='details'
+                value={formValues.details}
+                onChange={handleChange}
                 placeholder="details"
-                defaultValue={record.details}
             >
             </input>
             <p className='message details base-text smaller-caption'>

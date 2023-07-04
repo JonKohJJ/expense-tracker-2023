@@ -39,7 +39,6 @@ export default function Tracker() {
     fetchAllTypes();
   }, []);
 
-
   // FETCH ALL CATEGORIES - to be passed down to TrackerInputForm & TrackerUpdateForm
   const [categories, setCategories] = useState([]);
   const fetchCategories = async (type_id) => {
@@ -55,6 +54,7 @@ export default function Tracker() {
   // INPUT AND UPDATE FORM VALIDATION - they are basically the same thing
   const [messageDate, setMessageDate] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [messageExpensesMethod, setMessageExpensesMethod] = useState("");
   const [messageCategory, setMessageCategory] = useState("");
   const [messageAmount, setMessageAmount] = useState("");
   const [messageDetails, setMessageDetails] = useState("");
@@ -63,54 +63,81 @@ export default function Tracker() {
   // FORM VALIDATION - to be passed down to TrackerInputForm & TrackerUpdateForm
   const formValidation = (userInputs) => {
 
-      console.log("userInputs: ", userInputs);
-
       let validationResult = {
-          validation: false,
+
+          valid_date: false,
           message_date: "",
+
+          valid_type_id: false,
           message_type_id: "",
+
+          valid_expenses_method: false,
           message_expenses_method: "",
+
+          valid_category_id: false,
           message_category_id: "",
+
+          valid_amount: false,
           message_amount: "",
+
+          valid_details: false,
           message_details: ""
       };
 
-      
+      if (userInputs.record_date === ''){
+          validationResult.message_date = "*empty date";
+      }else{
+        validationResult.valid_date = true;
+      }
 
-      // if (userInputs.record_date === ''){
-      //     validationResult.message_date = "*empty date";
-      // }
-      // else if (userInputs.type_id === "select type"){
-      //     validationResult.message_type_id = "*empty type";
-      // }
-      // else if (userInputs.category_id === "select category"){
-      //     validationResult.message_category_id = "*empty category";
-      // }
-      // else if (userInputs.amount === ''){
-      //     validationResult.message_amount = "*empty amount";
-      // }
-      // else if (userInputs.details === ''){
-      //     validationResult.message_details = "*empty details";
-      // }
-      // // check if input contains .
-      // else if (userInputs.amount.includes(".")){
-      //     if(userInputs.amount.split(".")[0].length > 4){
-      //         validationResult.message_amount = "*up to '0000";
-      //     }
-      //     else if(userInputs.amount.split(".")[1].length > 2){
-      //         validationResult.message_amount = "*only 2.dps";
-      //     }
-      //     else{
-      //         validationResult.validation = true;
-      //     }
-      // }
-      // else if (!userInputs.amount.includes(".")){
-      //     if(userInputs.amount.length > 4){
-      //         validationResult.message_amount = "*up to '0000";
-      //     }else{
-      //         validationResult.validation = true;
-      //     }
-      // }
+      if (userInputs.type_id === ''){
+          validationResult.message_type_id = "*empty type";
+      }else{
+        validationResult.valid_type_id = true;
+      }
+
+      if(userInputs.type_name === 'Expenses'){
+        if(userInputs.expenses_method === ''){
+          validationResult.message_expenses_method = "*empty expenses method";
+        }else{
+          validationResult.valid_expenses_method = true;
+        }
+      }else{
+        validationResult.valid_expenses_method = true;
+      }
+
+      if (userInputs.category_id === ''){
+          validationResult.message_category_id = "*empty category";
+      }else{
+        validationResult.valid_category_id = true;
+      }
+
+      if (userInputs.amount === ''){
+          validationResult.message_amount = "*empty amount";
+      }else{
+        if (userInputs.amount.includes(".")){
+          if(userInputs.amount.split(".")[0].length > 4){
+            validationResult.message_amount = "*up to '0000";
+          }else if(userInputs.amount.split(".")[1].length > 2){
+            validationResult.message_amount = "*only 2.dps";
+          }else{
+            validationResult.valid_amount = true;
+          }
+        }else{ // does NOT include . - whole number
+          if(userInputs.amount.length > 4){
+            validationResult.message_amount = "*up to '0000";
+          }else{
+            validationResult.valid_amount = true;
+          }
+        }
+      }
+
+      if (userInputs.details === ''){
+          validationResult.message_details = "*empty details";
+      }else{
+        validationResult.valid_details = true;
+      }
+
       return validationResult;
   }
 
@@ -188,6 +215,7 @@ export default function Tracker() {
             updateId === record.record_id ? <TrackerUpdateForm 
                                               record={record} 
                                               types={types} 
+
                                               fetchCategories={fetchCategories}
                                               categories={categories}
                                               formValidation={formValidation}
@@ -197,6 +225,9 @@ export default function Tracker() {
 
                                               messageType={messageType}
                                               setMessageType={setMessageType}
+
+                                              messageExpensesMethod={messageExpensesMethod}
+                                              setMessageExpensesMethod={setMessageExpensesMethod}
 
                                               messageCategory={messageCategory}
                                               setMessageCategory={setMessageCategory}
@@ -250,6 +281,9 @@ export default function Tracker() {
 
                             messageType={messageType}
                             setMessageType={setMessageType}
+
+                            messageExpensesMethod={messageExpensesMethod}
+                            setMessageExpensesMethod={setMessageExpensesMethod}
 
                             messageCategory={messageCategory}
                             setMessageCategory={setMessageCategory}

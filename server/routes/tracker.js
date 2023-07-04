@@ -10,7 +10,8 @@ router.get("/", (req,res) => {
         date_format(r.record_date, "%Y-%m-%d") as record_date_update_format, 
         t.type_name, 
         r.expenses_method,
-        t.type_id, 
+        t.type_id,
+        r.category_id, 
         c.category_name, 
         r.amount, 
         r.details,
@@ -67,6 +68,7 @@ router.get("/getTypes", (req,res) => {
 });
 
 
+
 router.get("/getCategories/:type_id", (req,res) => {
     const type_id = req.params.type_id;
     const q = "select * from categories where type_id = ?"
@@ -83,12 +85,13 @@ router.get("/getCategories/:type_id", (req,res) => {
 router.post("/", (req,res) => {
     const q = `
         insert into 
-        records(record_date, type_id, category_id, amount, details)
+        records(record_date, type_id, expenses_method, category_id, amount, details)
         values(?);
     `
     const values = [
         req.body.record_date,
         req.body.type_id,
+        req.body.expenses_method,
         req.body.category_id,
         req.body.amount,
         req.body.details,
@@ -111,6 +114,7 @@ router.put("/:record_id", (req,res) => {
         set 
         record_date = ?, 
         type_id = ?, 
+        expenses_method = ?,
         category_id = ?, 
         amount = ?, 
         details = ?
@@ -119,6 +123,7 @@ router.put("/:record_id", (req,res) => {
     const updateValues = [
         req.body.record_date,
         req.body.type_id,
+        req.body.expenses_method,
         req.body.category_id,
         req.body.amount,
         req.body.details,
