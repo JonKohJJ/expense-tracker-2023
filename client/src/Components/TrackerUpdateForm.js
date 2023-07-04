@@ -27,8 +27,6 @@ export default function TrackerUpdateForm({
     setMessageDetails
 }) {
 
-    console.log("messageExpensesMethod: ", messageExpensesMethod);
-
     // run this code ONCE to fetch categories under a specific type
     useEffect(() => {
         fetchCategories(record.type_id);
@@ -80,7 +78,7 @@ export default function TrackerUpdateForm({
             if(e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text === "Expenses"){
                 setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text,category_id:"" })
             }else{
-                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:"" })
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:null })
             }
         }
         else{

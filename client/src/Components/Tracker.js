@@ -97,7 +97,8 @@ export default function Tracker() {
       }
 
       if(userInputs.type_name === 'Expenses'){
-        if(userInputs.expenses_method === ''){
+        
+        if(userInputs.expenses_method === null){
           validationResult.message_expenses_method = "*empty expenses method";
         }else{
           validationResult.valid_expenses_method = true;
