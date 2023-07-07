@@ -68,7 +68,6 @@ router.get("/getTypes", (req,res) => {
 });
 
 
-
 router.get("/getCategories/:type_id", (req,res) => {
     const type_id = req.params.type_id;
     const q = "select * from categories where type_id = ?"

@@ -49,10 +49,35 @@ export default function Dashboard() {
     }
   }
 
+  // FETCH Dashboard FOOTER Information
+  const [dashboardFooterData, setDashboardFooterData] = useState([]);
+  const fetchDashboardFooterData = (filtered_year, filtered_month) => {
+    try{
+      // fetch types and their respective footer data
+      axios.get("http://localhost:8800/getTypes/")
+        .then((types) => {
+          // fetch footer data for each type
+          const footerData = types.data.map(async(type, index) => {
+            const res = await axios.get("http://localhost:8800/getDashboardFooterData/" + filtered_year + "&" + filtered_month + "&" + type.type_id);
+            return {...type, footer_data:res.data}
+          })
+          Promise.all(footerData)
+            .then((footerData) => {
+              // console.log("categories (tracked & budget): ", categories);
+              setDashboardFooterData(footerData);
+            })
+        })
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
   useEffect(() => {
     // dashboard will always get the current year and month first
     fetchDashboardCardData(new Date().getFullYear(), new Date().getMonth() + 1);
     fetchDashboardBodyData(new Date().getFullYear(), new Date().getMonth() + 1);
+    fetchDashboardFooterData(new Date().getFullYear(), new Date().getMonth() + 1);
   }, []);
 
   // reformat fetch result into an object. Previously was an array of objects
@@ -109,6 +134,7 @@ export default function Dashboard() {
 
       <DashboardBody 
         dashboardBodyData={dashboardBodyData}
+        dashboardFooterData={dashboardFooterData}
       />
 
 

@@ -30,7 +30,8 @@ router.get("/getCategories/:type_id", (req,res) => {
     const q = `
         select
         c.category_id, 
-        c.category_name
+        c.category_name,
+        c.category_budget
         from categories c
         where type_id = ?
     `;
@@ -42,6 +43,28 @@ router.get("/getCategories/:type_id", (req,res) => {
         }
     });
 });
+
+router.post("/", (req,res) => {
+    const q = `
+        insert into 
+        categories(category_name, type_id, category_budget)
+        values(?);
+    `
+    const values = [
+        req.body.category_name,
+        req.body.type_id,
+        req.body.category_budget
+    ];
+    db.query(q, [values], (err, data) => {
+        if(err){
+            return res.json(err)
+        }else{
+            return res.json(data);
+        }
+    });
+});
+
+
 
 // GET YEARS
 router.get("/getYears", (req,res) => {
@@ -72,27 +95,6 @@ router.get("/getMonths/:year", (req,res) => {
         where year(period_id) = ?;
     `;
     db.query(q, [year], (err, data) => {
-        if(err){
-            return res.json(err)
-        }else{
-            return res.json(data);
-        }
-    });
-});
-
-
-// GET BUDGETS
-router.get("/getBudgets/:category_id", (req,res) => {
-    const category_id = req.params.category_id;
-    const q = `
-        select b.budget_amount, b.category_id, b.period_id, c.category_name
-        from budgets b
-        inner join categories c
-        on b.category_id = c.category_id
-        where b.category_id = ?
-        order by period_id;
-    `;
-    db.query(q, [category_id], (err, data) => {
         if(err){
             return res.json(err)
         }else{

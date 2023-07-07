@@ -11,7 +11,7 @@ export default function DashboardCards({
     dashboardFilterYears
 }) {
 
-    console.log("dashboardData_formatted: ", dashboardData_formatted);
+    // console.log("dashboardData_formatted: ", dashboardData_formatted);
 
   return (
     <div>

@@ -1,14 +1,13 @@
 import React from 'react'
 
-import PlannerPeriods from './PlannerPeriods'
-
-export default function PlannerTypes({type, periods}) {
+export default function PlannerTypes({type}) {
 
     return (
         <>
-            <td className={"row-headers " + type.type_id}>{type.type_name}</td>
-            <td className='empty-td'></td>
-            <PlannerPeriods periods={periods}/>
+            <td className={"row-headers " + type.type_id}>
+                {type.type_name}
+            </td>
+            <td className={"row-headers " + type.type_id} colSpan={3}>Budget</td>
         </>
     )
 }
