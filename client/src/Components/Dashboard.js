@@ -24,9 +24,6 @@ export default function Dashboard() {
   const [dashboardBodyData, setDashboardBodyData] = useState([]);
   const fetchDashboardBodyData = (filtered_year, filtered_month) => {
     try{
-      // const res = await axios.get("http://localhost:8800/getDashboardBodyData/" + filtered_year + "&" + filtered_month );
-      // console.log("Body data: ", res.data);
-      // // setDashboardData(res.data);
       
       // fetch types and their respective categories and budgets
       axios.get("http://localhost:8800/getTypes/")

@@ -19,19 +19,38 @@ export default function DashboardBody({dashboardBodyData, dashboardFooterData})
                     </thead>
                     <tbody>
                         {type.categories.map((category, index) => {
-                            return(
-                                <tr>
-                                    <td><p className="base-text caption">{category.category_name}</p></td>
-                                    <td><p className="base-text caption">{category.tracked}</p></td>
-                                    <td><p className="base-text caption">{category.category_budget}</p></td>
-                                    <td className='td-percentage'>
-                                        <p className="base-text caption">{Math.round(category["% completed"])}%</p>
-                                        <p className='td-percentage-progress-bar' style={{width: `${Math.round(category["% completed"])}%`}}></p>
-                                    </td>
-                                    <td><p className="base-text caption">{category.remaining}</p></td>
-                                    <td><p className="base-text caption">{category.excess}</p></td>
-                                </tr>
-                            )
+
+                            if(Math.round(category["% completed"]) > 100){
+                                return(
+                                    <tr className='category_exceeded' style={{fontWeight:600, color: "red"}}>
+                                        <td><p className="base-text caption">{category.category_name}</p></td>
+                                        <td><p className="base-text caption">{category.tracked}</p></td>
+                                        <td><p className="base-text caption">{category.category_budget}</p></td>
+                                        <td className='td-percentage'>
+                                            <p className="base-text caption">{Math.round(category["% completed"])}%</p>
+                                            <p className='td-percentage-progress-bar' style={{width: `${Math.round(category["% completed"])}%`}}></p>
+                                        </td>
+                                        <td><p className="base-text caption">{category.remaining}</p></td>
+                                        <td><p className="base-text caption">{category.excess}</p></td>
+                                    </tr>
+                                )
+                            }else{
+                                return(
+                                    <tr>
+                                        <td><p className="base-text caption">{category.category_name}</p></td>
+                                        <td><p className="base-text caption">{category.tracked}</p></td>
+                                        <td><p className="base-text caption">{category.category_budget}</p></td>
+                                        <td className='td-percentage'>
+                                            <p className="base-text caption">{Math.round(category["% completed"])}%</p>
+                                            <p className='td-percentage-progress-bar' style={{width: `${Math.round(category["% completed"])}%`}}></p>
+                                        </td>
+                                        <td><p className="base-text caption">{category.remaining}</p></td>
+                                        <td><p className="base-text caption">{category.excess}</p></td>
+                                    </tr>
+                                )
+
+                            }
+
                         })}
                     </tbody>                 
                     {

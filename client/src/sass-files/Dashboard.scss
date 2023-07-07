@@ -77,6 +77,9 @@
                 z-index: -1;
             }
         }
+        .category_exceeded{
+            background-color: rgba(255, 0, 0, 0.05);
+        }
 
         tr{
             border: 0.5px solid grey;
