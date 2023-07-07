@@ -136,25 +136,56 @@ router.get("/getDashboardBodyData/:filtered_year&:filtered_month", (req,res) => 
     });
 });
 
-router.get("/getDashboardFooterData/:filtered_year&:filtered_month&:type_id", (req,res) => {
+// form dashboard footer data
+// 01. total_tracked
+// 02. total_budget
+// 03. % completed
+// 04. remaining
+// 05. excess
+
+// router.get("/getDashboardFooterData/:filtered_year&:filtered_month&:type_id", (req,res) => {
+    
+//     const filtered_year = req.params.filtered_year;
+//     const filtered_month = req.params.filtered_month;
+//     const type_id = req.params.type_id;
+    
+//     const q = `
+//         select
+//         ifnull(sum(r.amount),0) as total_tracked,
+//         ifnull(sum(c.category_budget),0) as total_budget,
+//         round((ifnull(sum(r.amount),0)/ifnull(sum(c.category_budget),0))*100, 2) as 'total_% completed',
+//         greatest((ifnull(sum(c.category_budget),0) - ifnull(sum(r.amount),0)), 0) as total_remaining,
+//         abs(least((ifnull(sum(c.category_budget),0) - ifnull(sum(r.amount),0)), 0)) as total_excess
+//         from categories c
+//         left join records r
+//         on c.category_id = r.category_id
+//         and year(r.record_date) = ?
+//         and month(r.record_date) = ?
+//         where c.type_id = ?;
+//     `;
+//     db.query(q, [filtered_year, filtered_month, type_id], (err, data) => {
+//         if(err){
+//             return res.json(err)
+//         }else{
+//             return res.json(data);
+//         }
+//     });
+// });
+
+router.get("/getDashboardFooterData/getTotalTracked/:filtered_year&:filtered_month&:type_id", (req,res) => {
     
     const filtered_year = req.params.filtered_year;
     const filtered_month = req.params.filtered_month;
     const type_id = req.params.type_id;
     
     const q = `
-        select
-        ifnull(sum(r.amount),0) as total_tracked,
-        ifnull(sum(c.category_budget),0) as total_budget,
-        round((ifnull(sum(r.amount),0)/ifnull(sum(c.category_budget),0))*100, 2) as 'total_% completed',
-        greatest((ifnull(sum(c.category_budget),0) - ifnull(sum(r.amount),0)), 0) as total_remaining,
-        abs(least((ifnull(sum(c.category_budget),0) - ifnull(sum(r.amount),0)), 0)) as total_excess
-        from categories c
-        left join records r
-        on c.category_id = r.category_id
-        and year(r.record_date) = ?
+        select 
+        ifnull(sum(r.amount),0) as total_tracked 
+        from records r 
+        where 
+        year(r.record_date) = ?
         and month(r.record_date) = ?
-        where c.type_id = ?;
+        and type_id = ?;
     `;
     db.query(q, [filtered_year, filtered_month, type_id], (err, data) => {
         if(err){
@@ -164,6 +195,25 @@ router.get("/getDashboardFooterData/:filtered_year&:filtered_month&:type_id", (r
         }
     });
 });
+
+router.get("/getDashboardFooterData/getTotalBudget/:type_id", (req,res) => {
+    const type_id = req.params.type_id;
+    
+    const q = `
+        select 
+        ifnull(sum(c.category_budget),0) as total_budget 
+        from categories c 
+        where type_id = ?;
+    `;
+    db.query(q, [type_id], (err, data) => {
+        if(err){
+            return res.json(err)
+        }else{
+            return res.json(data);
+        }
+    });
+});
+
 
 
 module.exports = router;

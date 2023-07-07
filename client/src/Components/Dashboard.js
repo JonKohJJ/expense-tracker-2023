@@ -58,12 +58,28 @@ export default function Dashboard() {
         .then((types) => {
           // fetch footer data for each type
           const footerData = types.data.map(async(type, index) => {
-            const res = await axios.get("http://localhost:8800/getDashboardFooterData/" + filtered_year + "&" + filtered_month + "&" + type.type_id);
-            return {...type, footer_data:res.data}
+            const t_tracked = await axios.get("http://localhost:8800/getDashboardFooterData/getTotalTracked/" + filtered_year + "&" + filtered_month + "&" + type.type_id);
+            const t_budget =  await axios.get("http://localhost:8800/getDashboardFooterData/getTotalBudget/" + type.type_id);
+            
+            // calculate % completed, remaining and excess
+            const v_tracked = t_tracked.data[0].total_tracked;
+            const v_budget =  t_budget.data[0].total_budget;
+
+            const percentage_completed = Math.round((v_tracked/v_budget)*100);
+            const remaining = Math.max(v_budget-v_tracked,0).toFixed(2);
+            const excess = Math.abs(Math.min(v_budget-v_tracked,0).toFixed(2));
+
+            return {...type, footerData:{
+              total_tracked:              t_tracked.data[0].total_tracked, 
+              total_budget:               t_budget.data[0].total_budget,
+              total_percentage_completed: percentage_completed,
+              total_remaining:            remaining,
+              total_excess:               excess
+            }}
           })
           Promise.all(footerData)
             .then((footerData) => {
-              // console.log("categories (tracked & budget): ", categories);
+              // console.log(footerData);
               setDashboardFooterData(footerData);
             })
         })
@@ -127,6 +143,7 @@ export default function Dashboard() {
       <DashboardCards
         fetchDashboardCardData={fetchDashboardCardData}
         fetchDashboardBodyData={fetchDashboardBodyData}
+        fetchDashboardFooterData={fetchDashboardFooterData}
         dashboardData_formatted={dashboardData_formatted}
         dashboardFilterMonths={dashboardFilterMonths}
         dashboardFilterYears={dashboardFilterYears}

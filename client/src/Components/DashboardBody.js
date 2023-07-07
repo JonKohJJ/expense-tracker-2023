@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function DashboardBody({dashboardBodyData, dashboardFooterData}) 
 {
-    console.log("dashboardFooterData: ", dashboardFooterData);
+    // console.log("dashboardFooterData: ", dashboardFooterData);
     
   return (
     <div className='dashboard-body-container'>
@@ -36,12 +36,18 @@ export default function DashboardBody({dashboardBodyData, dashboardFooterData})
                     </tbody>                 
                     {
                         dashboardFooterData.map((total, index) => {
+
                             if(type.type_id === total.type_id){
+                                // console.log("total: ", total.footerData)
                                 return(
                                     <tfoot>
                                         <tr>
                                             <td>Total</td>
-                                            {/* <td>{total['footer_data'].total_tracked}</td> */}
+                                            <td>{total.footerData.total_tracked}</td>
+                                            <td>{total.footerData.total_budget}</td>
+                                            <td>{total.footerData.total_percentage_completed}%</td>
+                                            <td>{total.footerData.total_remaining}</td>
+                                            <td>{total.footerData.total_excess}</td>
                                         </tr>
                                     </tfoot>
                                 )

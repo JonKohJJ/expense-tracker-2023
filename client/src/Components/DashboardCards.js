@@ -6,6 +6,7 @@ import DashboardFilters from './DashboardFilters';
 export default function DashboardCards({
     fetchDashboardCardData,
     fetchDashboardBodyData,
+    fetchDashboardFooterData,
     dashboardData_formatted, 
     dashboardFilterMonths, 
     dashboardFilterYears
@@ -64,6 +65,7 @@ export default function DashboardCards({
                 <DashboardFilters
                     fetchDashboardCardData={fetchDashboardCardData}
                     fetchDashboardBodyData={fetchDashboardBodyData}
+                    fetchDashboardFooterData={fetchDashboardFooterData}
                     dashboardFilterMonths={dashboardFilterMonths}
                     dashboardFilterYears={dashboardFilterYears}
                 />
