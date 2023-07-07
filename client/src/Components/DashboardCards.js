@@ -52,7 +52,7 @@ export default function DashboardCards({
             <div className='card'>
                 <p className="base-text caption">Debit Account Balance</p>
                 <p className="base-text">${
-                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) ? 0 : (dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]
+                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) ? 0 : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
                 }</p>
             </div>
 

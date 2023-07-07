@@ -60,7 +60,7 @@ export default function TrackerInputForm({
         record_date: "",
         type_id: "",
         type_name: "",
-        expenses_method: "",
+        expenses_method: null,
         category_id: "",
         amount: "",
         details: ""
@@ -75,7 +75,7 @@ export default function TrackerInputForm({
                 setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text,category_id:"" })
             }else{
                 setExpensesSelected(false);
-                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:"" })
+                setFormValues({ ...formValues, [e.target.name]:e.target.value, type_name:e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text, category_id:"", expenses_method:null })
             }
         }
     }
