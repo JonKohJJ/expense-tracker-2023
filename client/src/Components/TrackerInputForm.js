@@ -65,6 +65,7 @@ export default function TrackerInputForm({
         amount: "",
         details: ""
     })
+
     function handleChange(e){ 
         setFormValues({ ...formValues, [e.target.name]:e.target.value })
 

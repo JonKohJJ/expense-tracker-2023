@@ -71,7 +71,7 @@ export default function TrackerUpdateForm({
         details: record.details
     })
 
-    console.log("formValues: ", formValues);
+    // console.log("formValues: ", formValues);
 
     function handleChange(e){ 
         if(e.target.name === "type_id"){
