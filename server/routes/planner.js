@@ -32,9 +32,13 @@ router.get("/getCategories/:type_id", (req,res) => {
         select
         c.category_id, 
         c.category_name,
-        c.category_budget
+        c.category_budget,
+        count(record_id) as record_count
         from categories c
-        where type_id = ?
+        inner join records r
+        on c.category_id = r.category_id
+        where c.type_id = ?
+        group by c.category_id;
     `;
     db.query(q, [type_id], (err, data) => {
         if(err){
@@ -135,10 +139,12 @@ router.delete("/:category_id", (req,res) => {
     const category_id = req.params.category_id;
 
     const q = `
+        delete from records
+        where category_id = ?;
         delete from categories
         where category_id = ?
     `
-    db.query(q, [category_id], (err, data) => {
+    db.query(q, [category_id, category_id], (err, data) => {
         if(err){
             return res.json(err)
         }else{

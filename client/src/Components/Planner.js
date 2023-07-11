@@ -101,6 +101,7 @@ export default function Planner() {
 
   // handle delete function
   const handleDelete = async (category_id) => {
+
     try{
       await axios.delete("http://localhost:8800/planner/" + category_id);
       window.location.reload(false);

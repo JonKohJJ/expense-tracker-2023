@@ -13,7 +13,7 @@ export default function PlannerUpdateForm({
   setMessageCategoryBudget
 }) {
 
-  console.log("category: ", category);
+  // console.log("category: ", category);
 
   const [userInputs, setUserInputs] = useState(
     {
@@ -79,7 +79,7 @@ export default function PlannerUpdateForm({
             </p>
         </td>
 
-        <td>
+        <td colSpan={2}>
           <input 
             type="submit" 
             value="Update"

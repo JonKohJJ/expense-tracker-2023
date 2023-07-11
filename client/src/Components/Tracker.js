@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import '../sass-files/App.scss';
 import '../sass-files/Tracker.scss';
@@ -253,7 +255,15 @@ export default function Tracker() {
               <td><p className="base-text caption">{record.amount}</p></td>
               <td><p className="base-text caption">{record.details}</p></td>
               <td><p className="base-text caption btn-edit" onClick={() => handleUpdate(record.record_id)}>edit</p></td> 
-              <td><p className="base-text caption btn-delete" onClick={() => handleDelete(record.record_id)}>delete</p></td>
+              <td>
+              <Popup trigger=
+                  <p className="base-text caption btn-delete">delete</p>
+                  position="left center">
+                  <div>Are you sure?</div>
+                  <button onClick={() => handleDelete(record.record_id)}>Yes, I'm sure</button>
+              </Popup>
+                {/* <p className="base-text caption btn-delete" onClick={() => handleDelete(record.record_id)}>delete</p> */}
+              </td>
             </tr>
 
             ))}
