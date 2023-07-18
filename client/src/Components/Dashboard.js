@@ -14,6 +14,7 @@ export default function Dashboard() {
   const fetchDashboardCardData = async (filtered_year, filtered_month) => {
     try{
       const res = await axios.get("http://localhost:8800/getDashboardCardData/" + filtered_year + "&" + filtered_month );
+      console.log(res.data);
       setDashboardCardData(res.data);
     }catch(err){
       console.log(err);

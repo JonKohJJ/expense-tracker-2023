@@ -32,9 +32,26 @@ function App() {
       <div className="content">
 
         <nav className='navbar'>
-          <Link to="/planner"><p className="base-text">Planner</p></Link>
-          <Link to="/tracker"><p className="base-text">Tracker</p></Link>
-          <Link to="/"><p className="base-text">Dashboard</p></Link>
+
+          <div>
+            <div className='nav-logo'>
+              <p className="base-text">Logo</p>
+            </div>
+
+            <div className='nav-links'>
+              <Link to="/planner"><p className="base-text">Planner</p></Link>
+              <Link to="/tracker"><p className="base-text">Tracker</p></Link>
+              <Link to="/"><p className="base-text">Dashboard</p></Link>
+            </div>
+          </div>
+          
+
+          <div className='nav-profile'>
+            <p className="base-text">Profile</p>
+          </div>
+          
+
+
         </nav>
 
         <Routes>

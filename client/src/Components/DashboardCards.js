@@ -12,7 +12,7 @@ export default function DashboardCards({
     dashboardFilterYears
 }) {
 
-    // console.log("dashboardData_formatted: ", dashboardData_formatted);
+    console.log("dashboardData_formatted: ", dashboardData_formatted);
 
   return (
     <div>
@@ -38,7 +38,7 @@ export default function DashboardCards({
                     ?
                         <div>
                             <p className="base-text smaller-caption">You are saving 0% of your income,</p>
-                            <p className="base-text smaller-caption">good job!</p>
+                            <p className="base-text smaller-caption">you can do better!</p>
                         </div>
                     :
                         <div>
@@ -52,13 +52,42 @@ export default function DashboardCards({
             <div className='card'>
                 <p className="base-text caption">Debit Account Balance</p>
                 <p className="base-text">${
-                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) ? 0 : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
+                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) 
+                    ? 0 
+                    : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
                 }</p>
             </div>
 
             <div className='card'>
                 <p className="base-text caption">Amount charged to Credit Card</p>
                 <p className="base-text">${dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
+            
+                {(((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]) > 0
+                ? 
+                    <div>
+                        <p className="base-text smaller-caption">You are left with $
+                            {((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2)} in your debit account
+                        </p>
+                    </div>
+                :
+                    isNaN((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]))
+                    ?
+                        <div>
+                            <p className="base-text smaller-caption">You are left with $0 in your debit account
+                            </p>
+                        </div>
+                    :
+                        <div>
+                            <p className="base-text smaller-caption">You need $
+                                {Math.abs(((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2))} more in your debit account
+                            </p>
+                            <p className="base-text smaller-caption">
+                                to be able to pay for your credit card bills
+                            </p>
+                        </div>
+
+                }
+            
             </div>
 
             <div>
