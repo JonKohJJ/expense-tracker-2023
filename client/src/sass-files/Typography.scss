@@ -1,10 +1,9 @@
 :root {
     /* Typography */
     --typography-scale: 1.125;
-    --base-font-size: 16px;
+    --base-font-size: 18px;
 
     /* Typography Calculations */
-
     --font-size-smaller-caption: calc(var(--font-size-caption) / var(--typography-scale));
     --font-size-caption: calc(var(--base-font-size) / var(--typography-scale));
 

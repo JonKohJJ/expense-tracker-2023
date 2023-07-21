@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
 }
 
@@ -13,34 +13,140 @@ body{
   background-color: #EDF0F1;
 }
 
-
-.typography{
-  height: 100vh;
-}
-
-/* ===== Content Div - holds navbar & main content ===== */
-.content{
-  display: flex;
-}
-
 /* ===== Nav Bar ===== */
 .navbar{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 
   height: 100vh;
-  width: 120px;
-  border-right: .5px solid grey;
+  width: 15%;
+  max-width: 200px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 30px 10px;
 
   position: fixed;
-  top: 0;
+
+    > div{
+      width: 100%;
+      // background-color: rgba(0, 0, 0, 0.1);
+    }
+    .nav-logo{
+      margin-bottom: 30px;
+    }
+    // ===== Each dashboard navigation section =====
+    .nav-links-div{
+      margin-bottom: 30px;
+
+
+      &:last-of-type{
+        margin-bottom: 0;
+      }
+
+      // ===== Title of each dashboard navigation section =====
+      .nav-titles{ 
+        font-size: var(--font-size-smaller-caption);
+        font-weight: 600;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 10px;
+      }
+
+      // ===== The nav links themselves =====
+      .nav-links{
+        text-decoration: none;
+        color: black;
+        transition: all 0.15s ease-in-out;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 7px 0;
+        border-radius: 5px;
+        
+        .nav-icons{
+          padding: 0 10px 0 15px;
+        }
+
+        &:hover{
+          color: white;
+          background-color: black;
+        }
+      }
+
+
+
+    }
+
+    // ===== Bottom of nav bar - Profile =====
+    .settings{
+      margin-bottom: 0;
+    }
+    .horizontal-line{
+      height: 1px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin: 10px 0;
+    }
+    .profile-div{
+      position: relative;
+      margin-top: 20px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      .user-picture{
+        margin-bottom: 5px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        img{
+          height: 50px;
+          width: 50px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+
+      .user-info{
+        text-align: center;
+        .smaller-caption{
+          line-height: 1em;
+        }
+      }
+
+      .profile-edit{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        border-radius: 50%;
+        transition: all 0.15s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover{
+          background-color: black;
+          color: white;
+        }
+      }
+
+      .bold{
+        font-weight: 600;
+      }
+    }
+
+
 }
 
-/* ===== Planner, Tracker & Dashboard Components ===== */
+/* ===== All Components ===== */
 .component{
-  height: 100%;
-  width: 100%;
-  padding: 10px 20px 10px 140px;
+  padding: 10px 20px 10px 220px;
 }
