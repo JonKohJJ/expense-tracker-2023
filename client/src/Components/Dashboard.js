@@ -14,7 +14,7 @@ export default function Dashboard() {
   const fetchDashboardCardData = async (filtered_year, filtered_month) => {
     try{
       const res = await axios.get("http://localhost:8800/getDashboardCardData/" + filtered_year + "&" + filtered_month );
-      console.log(res.data);
+      // console.log(res.data);
       setDashboardCardData(res.data);
     }catch(err){
       console.log(err);
@@ -136,7 +136,11 @@ export default function Dashboard() {
 
   return (
     <div className='component dashboard'>
-      <p className="headers h4">Dashboard</p>
+
+      <div className='search'>
+      
+      </div>
+      <p className="headers h4">Monthly Overview</p>
 
       <DashboardCards
         fetchDashboardCardData={fetchDashboardCardData}
