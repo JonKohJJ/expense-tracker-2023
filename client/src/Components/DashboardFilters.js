@@ -21,7 +21,7 @@ export default function DashboardFilters({
     <div className='dashboard-filters'>
 
         <div className='filter'>
-            <p className="base-text caption">Year:</p>
+            {/* <p className="base-text caption">Year:</p> */}
             <select onChange={handleFilters} ref={ref_filter_year}>
 
                 <option selected value={new Date().getFullYear()}>Current Year</option>
@@ -34,7 +34,7 @@ export default function DashboardFilters({
         
 
         <div className='filter'>
-            <p className="base-text caption">Month:</p>
+            {/* <p className="base-text caption">Month:</p> */}
             <select onChange={handleFilters} ref={ref_filter_month}>
 
                 <option value={new Date().getMonth() + 1}>Current Month</option>

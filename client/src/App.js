@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faArrowTrendUp, faTableColumns,faChartGantt, faGear, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faArrowTrendUp, faTableColumns,faChartGantt, faGear, faEllipsisV, faFont } from "@fortawesome/free-solid-svg-icons";
 
 import './sass-files/App.scss';
 import profile from './images/profile.jpg';
@@ -32,8 +32,8 @@ function App() {
           <div className='nav-bar-top'>
 
             <div className='nav-logo'>
-                <img className='logo' src={logo} />
-                <img className='tracked' src={tracked} />
+                {/* <img className='logo' src={logo} />
+                <img className='tracked' src={tracked} /> */}
             </div>
 
             <div className='nav-links-div'>
@@ -46,7 +46,10 @@ function App() {
                   <FontAwesomeIcon icon={faArrowTrendUp} className='nav-icons' />
                   <p className="base-text">Savings</p>
               </Link>
-              {/* <Link className='nav-links' to="/typography"><p className="base-text">Typography</p></Link> */}
+              <Link className='nav-links' to="/typography">
+                <FontAwesomeIcon icon={faFont} className='nav-icons' />
+                <p className="base-text">Typography</p>
+              </Link>
             </div>
 
             <div className='nav-links-div'>

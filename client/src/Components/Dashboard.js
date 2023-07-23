@@ -137,10 +137,10 @@ export default function Dashboard() {
   return (
     <div className='component dashboard'>
 
-      <div className='search'>
+      {/* <div className='search'>
       
-      </div>
-      <p className="headers h4">Monthly Overview</p>
+      </div> */}
+
 
       <DashboardCards
         fetchDashboardCardData={fetchDashboardCardData}
@@ -155,8 +155,6 @@ export default function Dashboard() {
         dashboardBodyData={dashboardBodyData}
         dashboardFooterData={dashboardFooterData}
       />
-
-
 
     </div>
   )

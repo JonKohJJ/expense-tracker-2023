@@ -16,34 +16,59 @@ export default function DashboardCards({
 
   return (
     <div>
+        
+        <div className='dashboard-title-filter'>
+            <div>
+                <p className="headers h4">Welcome Back, Jonathan</p>
+                <p className="base-text caption">Never lose track of your finances again.</p>
+            </div>
+             
+            <DashboardFilters
+                fetchDashboardCardData={fetchDashboardCardData}
+                fetchDashboardBodyData={fetchDashboardBodyData}
+                fetchDashboardFooterData={fetchDashboardFooterData}
+                dashboardFilterMonths={dashboardFilterMonths}
+                dashboardFilterYears={dashboardFilterYears}
+            />
+        </div>
+
         <div className='dashboard-cards-container'>
 
             <div className='card'>
                 <p className="base-text caption">Total Income</p>
-                <p className="base-text">${dashboardData_formatted.Income === undefined ? 0 : dashboardData_formatted.Income}</p>
+                <div className='amount'>
+                    <p className='dollar-sign'>$</p>
+                    <p className="headers h5">{dashboardData_formatted.Income === undefined ? 0 : dashboardData_formatted.Income}</p>
+                </div>
+                
             </div>
 
             <div className='card'>
                 <p className="base-text caption">Total Savings</p>
-                <p className="base-text">${dashboardData_formatted.Savings === undefined ? 0 : dashboardData_formatted.Savings}</p>
+
+                <div className='amount'>
+                    <p className='dollar-sign'>$</p>
+                    <p className="headers h5">{dashboardData_formatted.Savings === undefined ? 0 : dashboardData_formatted.Savings}</p>
+                </div>
+                
 
                 {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2) < 20 
                 ? 
                     <div>
-                        <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income,</p>
-                        <p className="base-text smaller-caption">you can do better!</p>
+                        <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income, you can do better!</p>
+                        {/* <p className="base-text smaller-caption">you can do better!</p> */}
                     </div>
                 :
                     isNaN(((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2))
                     ?
                         <div>
-                            <p className="base-text smaller-caption">You are saving 0% of your income,</p>
-                            <p className="base-text smaller-caption">you can do better!</p>
+                            <p className="base-text smaller-caption">You are saving 0% of your income, you can do better!</p>
+                            {/* <p className="base-text smaller-caption">you can do better!</p> */}
                         </div>
                     :
                         <div>
-                            <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income,</p>
-                            <p className="base-text smaller-caption">good job!</p>
+                            <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income, good job!</p>
+                            {/* <p className="base-text smaller-caption">good job!</p> */}
                         </div>
                 }
                 
@@ -51,17 +76,26 @@ export default function DashboardCards({
 
             <div className='card'>
                 <p className="base-text caption">Debit Account Balance</p>
-                <p className="base-text">${
-                    isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) 
-                    ? 0 
-                    : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
-                }</p>
+                <div className='amount'>
+                    <p className='dollar-sign'>$</p>
+                    <p className="headers h5">{
+                        isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) 
+                        ? 0 
+                        : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
+                    }</p>
+                </div>
+
             </div>
 
             <div className='card'>
                 <p className="base-text caption">Amount charged to Credit Card</p>
-                <p className="base-text">${dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
-            
+
+                <div className='amount'>
+                    <p className='dollar-sign'>$</p>
+                    <p className="headers h5">{dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
+                </div>
+                
+                
                 {(((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]) > 0
                 ? 
                     <div>
@@ -90,16 +124,6 @@ export default function DashboardCards({
             
             </div>
 
-            <div>
-                <DashboardFilters
-                    fetchDashboardCardData={fetchDashboardCardData}
-                    fetchDashboardBodyData={fetchDashboardBodyData}
-                    fetchDashboardFooterData={fetchDashboardFooterData}
-                    dashboardFilterMonths={dashboardFilterMonths}
-                    dashboardFilterYears={dashboardFilterYears}
-                />
-            </div>
-            
         </div>
 
     </div>

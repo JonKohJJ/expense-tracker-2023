@@ -10,7 +10,7 @@
 
 /* ===== Body ===== */
 body{
-  background-color: #e8f3f5;
+  background-color: #f3f6f7;
 }
 
 /* ===== Nav Bar ===== */
@@ -38,6 +38,7 @@ body{
       align-items: center;
       margin-bottom: 30px;
       cursor: pointer;
+      padding-right: 10px;
 
       .logo{
         width: 25%;
@@ -99,7 +100,7 @@ body{
     .ads{
       padding: 120px 0;
       border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.1);
+      // background-color: rgba(0, 0, 0, 0.1);
       margin-bottom: 10px;
     }
 
