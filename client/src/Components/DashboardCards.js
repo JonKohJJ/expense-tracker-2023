@@ -47,7 +47,7 @@ export default function DashboardCards({
                     </div>
                 </div>
                 <div>
-                    <p className="base-text smaller-caption">-</p>
+                    <p className="base-text smaller-caption">~</p>
                 </div>
             </div>
 
@@ -100,9 +100,28 @@ export default function DashboardCards({
                         }</p>
                     </div>
                 </div>
-                <div>
-                    <p className="base-text smaller-caption">-</p>
-                </div>
+                {(((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]) > 0
+                ? 
+                    <div>
+                        <p className="base-text smaller-caption">$
+                            {((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2)} left to pay for your credit card bills
+                        </p>
+                    </div>
+                :
+                    isNaN((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]))
+                    ?
+                        <div>
+                            <p className="base-text smaller-caption">
+                                $0 left to pay for your credit card bills
+                            </p>
+                        </div>
+                    :
+                        <div>
+                            <p className="base-text smaller-caption">$
+                                {Math.abs(((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2))} needed to pay for your credit card bills
+                            </p>
+                        </div>
+                }
             </div>
 
             <div className='card'>
@@ -115,31 +134,9 @@ export default function DashboardCards({
                         <p className="headers h5">{dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
                     </div>
                 </div>
-                
-                {(((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]) > 0
-                ? 
-                    <div>
-                        <p className="base-text smaller-caption">You are left with $
-                            {((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2)} in your debit account
-                        </p>
-                    </div>
-                :
-                    isNaN((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]))
-                    ?
-                        <div>
-                            <p className="base-text smaller-caption">You are left with $0 in your debit account
-                            </p>
-                        </div>
-                    :
-                        <div>
-                            <p className="base-text smaller-caption">You need $
-                                {Math.abs(((((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"])).toFixed(2))} more in your debit account
-                            </p>
-                            <p className="base-text smaller-caption">
-                                to be able to pay for your credit card bills
-                            </p>
-                        </div>
-                }
+                <div>
+                    <p className="base-text smaller-caption">~</p>
+                </div>
             </div>
 
         </div>
