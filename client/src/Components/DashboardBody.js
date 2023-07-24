@@ -10,9 +10,8 @@ export default function DashboardBody({dashboardBodyData, dashboardFooterData})
             return( 
 
                 <div className={`table-container ${type.type_name}`}>
-                    {/* <p className='base-text'>{type.type_name}</p> */}
                     <table key={type.type_id} className='dashboard-table-type'>
-                        <tr className='table-title'>{type.type_name}</tr>
+                        <tr className='table-title'><p className='headers h5'>{type.type_name}</p></tr>
                         <tr className='table-headers'>
                             <td><p className='base-text smaller-caption'>Categories</p></td>
                             <td><p className='base-text smaller-caption'>Tracked</p></td>

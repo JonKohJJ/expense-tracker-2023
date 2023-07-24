@@ -4,13 +4,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 16px;
 }
 
 /* ===== Body ===== */
 body{
-  background-color: #f3f6f7;
+  background-color: #EEEEEE;
 }
 
 /* ===== Nav Bar ===== */
@@ -24,9 +24,11 @@ body{
   width: 15%;
   max-width: 200px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 10px 10px 30px 10px;
+  padding: 30px 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 
   position: fixed;
+  background-color: white;
 
     > div{
       width: 100%;
@@ -36,7 +38,7 @@ body{
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 30px;
+      // margin-bottom: 30px;
       cursor: pointer;
       padding-right: 10px;
 
@@ -73,22 +75,29 @@ body{
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 5px 0;
+        padding: 10px 0;
         margin-top: 3px;
-        border-radius: 5px;
-        // font-weight: 600;
+        
+        width: calc(100% + 20px);
+        transform: translateX(-10px);
+        
         &.active{
           color: white;
-          background-color: black;
+          background-color: #371CEF;
+
+          &:hover{
+            color: white;
+            background-color: #371CEF;
+          }
         }
 
         .nav-icons{
-          padding: 0 10px 0 15px;
+          padding: 0 10px 0 25px;
         }
 
         &:hover{
-          color: white;
-          background-color: black;
+          color: #371CEF;
+          background-color: #EEEEEE;
         }
       }
 
@@ -159,8 +168,8 @@ body{
         color: black;
 
         &:hover{
-          background-color: black;
-          color: white;
+          background-color: rgba(0, 0, 0, 0.05);
+          color: #371CEF;
         }
       }
 
@@ -174,7 +183,7 @@ body{
 
 /* ===== All Components ===== */
 .component{
-  padding: 10px 20px 10px 220px;
+  padding: 30px 20px 30px 220px;
 
   .search{
     padding: 35px 0;

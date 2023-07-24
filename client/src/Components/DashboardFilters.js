@@ -1,5 +1,8 @@
 import React, { useRef } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
 export default function DashboardFilters({
     fetchDashboardCardData,
     fetchDashboardBodyData,
@@ -24,7 +27,9 @@ export default function DashboardFilters({
             {/* <p className="base-text caption">Year:</p> */}
             <select onChange={handleFilters} ref={ref_filter_year}>
 
-                <option selected value={new Date().getFullYear()}>Current Year</option>
+                <option selected value={new Date().getFullYear()}>
+                    Current Year
+                </option>
 
                 {dashboardFilterYears.map(year => (
                     <option value={year.year} key={year.year}>{year.year}</option>
@@ -44,6 +49,7 @@ export default function DashboardFilters({
                 ))}
             </select>
         </div>
+        
         
     </div>
   )

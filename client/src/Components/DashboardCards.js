@@ -1,4 +1,7 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCreditCard, faPiggyBank, faSackDollar, faWallet } from "@fortawesome/free-solid-svg-icons"
+
 import '../sass-files/Dashboard.scss'
 
 import DashboardFilters from './DashboardFilters';
@@ -35,28 +38,38 @@ export default function DashboardCards({
         <div className='dashboard-cards-container'>
 
             <div className='card'>
-                <p className="base-text caption">Total Income</p>
-                <div className='amount'>
-                    <p className='dollar-sign'>$</p>
-                    <p className="headers h5">{dashboardData_formatted.Income === undefined ? 0 : dashboardData_formatted.Income}</p>
+                <FontAwesomeIcon icon={faSackDollar} className='card-icons' />
+                <div>
+                    <p className="base-text caption">Total Income</p>
+                    <div className='amount'>
+                        <p className='dollar-sign'>$</p>
+                        <p className="headers h5">{dashboardData_formatted.Income === undefined ? 0 : dashboardData_formatted.Income}</p>
+                    </div>
                 </div>
-                
+                <div>
+                    <p className="base-text smaller-caption">-</p>
+                </div>
             </div>
 
             <div className='card'>
-                <p className="base-text caption">Total Savings</p>
-
-                <div className='amount'>
-                    <p className='dollar-sign'>$</p>
-                    <p className="headers h5">{dashboardData_formatted.Savings === undefined ? 0 : dashboardData_formatted.Savings}</p>
-                </div>
                 
+                <FontAwesomeIcon icon={faPiggyBank} className='card-icons' />
+                <div>
+                    <p className="base-text caption">Total Savings</p>
+                    <div className='amount'>
+                        <p className='dollar-sign'>$</p>
+                        <p className="headers h5">{dashboardData_formatted.Savings === undefined ? 0 : dashboardData_formatted.Savings}</p>
+                    </div>
+                </div>
 
                 {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2) < 20 
                 ? 
                     <div>
-                        <p className="base-text smaller-caption">You are saving {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}% of your income, you can do better!</p>
-                        {/* <p className="base-text smaller-caption">you can do better!</p> */}
+                        <p className="base-text smaller-caption">
+                            You are saving 
+                            {((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2)}%
+                            of your income, you can do better!
+                        </p>
                     </div>
                 :
                     isNaN(((dashboardData_formatted.Savings / dashboardData_formatted.Income )*100).toFixed(2))
@@ -75,26 +88,33 @@ export default function DashboardCards({
             </div>
 
             <div className='card'>
-                <p className="base-text caption">Debit Account Balance</p>
-                <div className='amount'>
-                    <p className='dollar-sign'>$</p>
-                    <p className="headers h5">{
-                        isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) 
-                        ? 0 
-                        : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
-                    }</p>
+                <FontAwesomeIcon icon={faWallet} className='card-icons' />
+                <div>
+                    <p className="base-text caption">Debit Account Balance</p>
+                    <div className='amount'>
+                        <p className='dollar-sign'>$</p>
+                        <p className="headers h5">{
+                            isNaN((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]) 
+                            ? 0 
+                            : ((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2)
+                        }</p>
+                    </div>
                 </div>
-
+                <div>
+                    <p className="base-text smaller-caption">-</p>
+                </div>
             </div>
 
             <div className='card'>
-                <p className="base-text caption">Amount charged to Credit Card</p>
+                <FontAwesomeIcon icon={faCreditCard} className='card-icons' />
+                <div>
+                    <p className="base-text caption">Amount charged to Credit Card</p>
 
-                <div className='amount'>
-                    <p className='dollar-sign'>$</p>
-                    <p className="headers h5">{dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
+                    <div className='amount'>
+                        <p className='dollar-sign'>$</p>
+                        <p className="headers h5">{dashboardData_formatted["ExpensesCredit"] === undefined ? 0 : dashboardData_formatted["ExpensesCredit"]}</p>
+                    </div>
                 </div>
-                
                 
                 {(((dashboardData_formatted.Income - dashboardData_formatted.Savings) - dashboardData_formatted["ExpensesDebit"]).toFixed(2))-(dashboardData_formatted["ExpensesCredit"]) > 0
                 ? 
@@ -119,9 +139,7 @@ export default function DashboardCards({
                                 to be able to pay for your credit card bills
                             </p>
                         </div>
-
                 }
-            
             </div>
 
         </div>

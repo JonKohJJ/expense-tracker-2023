@@ -38,7 +38,7 @@ function App() {
 
             <div className='nav-links-div'>
               <p className='nav-titles'>Dashboard</p>
-              <Link className='nav-links' to="/">
+              <Link className='nav-links active' to="/">
                   <FontAwesomeIcon icon={faHouse} className='nav-icons' />
                   <p className="base-text">Overview</p>
               </Link>
