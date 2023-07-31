@@ -199,18 +199,53 @@ export default function Tracker() {
         daysDifference={daysDifference}
       />
 
-      <table className='tracker-table'>
+      <button 
+          className='btn-add-record' 
+          onClick={() => {
+            isToggledAddBtn ? SetIsToggledAddBtn(false) : SetIsToggledAddBtn(true);
+            isToggledAddBtn ? SetAddBtnContent("Add") : SetAddBtnContent("Close");
+          }}>
+          {addBtnContent}
+      </button>
 
-        <thead>
-          <tr>
-            <td><p className="base-text">Date</p></td>
-            <td><p className="base-text">Type</p></td>
-            <td><p className="base-text">Category</p></td>
-            <td><p className="base-text">Amount</p></td>
-            <td colSpan={3}><p className="base-text">Details</p></td>
-            {/* <td colSpan={2}></td> */}
-          </tr>
-        </thead>
+      {isToggledAddBtn ? <TrackerInputForm 
+                            types={types} 
+                            fetchCategories={fetchCategories} 
+                            categories={categories}
+                            formValidation={formValidation}
+
+                            messageDate={messageDate}
+                            setMessageDate={setMessageDate}
+
+                            messageType={messageType}
+                            setMessageType={setMessageType}
+
+                            messageExpensesMethod={messageExpensesMethod}
+                            setMessageExpensesMethod={setMessageExpensesMethod}
+
+                            messageCategory={messageCategory}
+                            setMessageCategory={setMessageCategory}
+
+                            messageAmount={messageAmount}
+                            setMessageAmount={setMessageAmount}
+
+                            messageDetails={messageDetails}
+                            setMessageDetails={setMessageDetails}
+                          /> : <></>
+      }
+
+
+    <div className='table-container'>
+        <table className='tracker-table'>
+
+        <tr className='table-title'><p className='headers h5'>Transactions</p></tr>
+        <tr className='table-headers'>
+            <td><p className='base-text smaller-caption'>Date</p></td>
+            <td><p className='base-text smaller-caption'>Type</p></td>
+            <td><p className='base-text smaller-caption'>Category</p></td>
+            <td><p className='base-text smaller-caption'>Amount</p></td>
+            <td><p className='base-text smaller-caption'>Details</p></td>
+        </tr>
 
         <tbody>
           {records.map(record => (
@@ -268,46 +303,11 @@ export default function Tracker() {
 
             ))}
         </tbody>
-        
-        
-      </table>
+          
+          
+        </table>
 
-      <button 
-          className='btn-add-record' 
-          onClick={() => {
-            isToggledAddBtn ? SetIsToggledAddBtn(false) : SetIsToggledAddBtn(true);
-            isToggledAddBtn ? SetAddBtnContent("Add") : SetAddBtnContent("Close");
-          }}>
-          {addBtnContent}
-      </button>
-
-      {isToggledAddBtn ? <TrackerInputForm 
-                            types={types} 
-                            fetchCategories={fetchCategories} 
-                            categories={categories}
-                            formValidation={formValidation}
-
-                            messageDate={messageDate}
-                            setMessageDate={setMessageDate}
-
-                            messageType={messageType}
-                            setMessageType={setMessageType}
-
-                            messageExpensesMethod={messageExpensesMethod}
-                            setMessageExpensesMethod={setMessageExpensesMethod}
-
-                            messageCategory={messageCategory}
-                            setMessageCategory={setMessageCategory}
-
-                            messageAmount={messageAmount}
-                            setMessageAmount={setMessageAmount}
-
-                            messageDetails={messageDetails}
-                            setMessageDetails={setMessageDetails}
-                          /> : <></>
-      }
-
-
+      </div>
     </div>
   )
 }

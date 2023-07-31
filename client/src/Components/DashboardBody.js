@@ -81,7 +81,6 @@ export default function DashboardBody({dashboardBodyData, dashboardFooterData})
                                 })
                             }
                         </table>
-
                     </div>
                 // </div>
             )

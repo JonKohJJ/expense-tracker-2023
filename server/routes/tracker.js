@@ -23,8 +23,8 @@ router.get("/", (req,res) => {
         inner join categories c
         on r.category_id = c.category_id
         order by 
-            r.record_date,
-            r.created_at
+            r.record_date DESC,
+            r.created_at DESC
 
     `
     db.query(q, (err, data) => {

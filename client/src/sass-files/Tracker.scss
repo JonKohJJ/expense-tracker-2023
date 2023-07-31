@@ -6,108 +6,105 @@ $details_width: 41%;
 $edit_width: 5%;
 $delete_width: 5%;
 
-.inline{
-    display: inline-block;
-}
 
-.tracker-table{
-    width: 100%;
-    margin: 15px 0;
-    border-collapse: collapse;
-    
-    tr, td{
-        border: .5px solid rgba(0, 0, 0, 0.5);
-    }
-    thead tr:nth-of-type(1){
-        background-color: rgba(0, 0, 0, 0.2); // header background color
-    }
-    tr:hover{
-        background-color: rgba(0, 0, 0, 0.2); // row hover background color change
-    }
+// TRACKER CARDS
+.tracker-cards-container{
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px 0;
 
+    .card{
 
-    td:nth-of-type(1){ // record_date
-        width: $record_date_width;
-        padding-left: 5px;
-    }
-    td:nth-of-type(2){ // type_name
-        width: $type_name_width;
-        padding-left: 5px;
-    }
-    td:nth-of-type(3){ // category_name
-        width: $category_name_width;
-        padding-left: 5px;
-    }
-    td:nth-of-type(4){ // amount
-        width: $amount_width;
-        padding-right: 10px;
-        text-align: right;
-    }
-    td:nth-of-type(5){ // details
-        width: $details_width;
-        padding-left: 10px;
-    }
-    td:nth-of-type(6){ // edit button
-        width: $edit_width;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.1s ease-in-out;
-
-        &:hover{
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-    }
-    td:nth-of-type(7){ // delete button
-        width: $edit_width;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.1s ease-in-out;
-
-        &:hover{
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-    }
-
-
-    // UPDATING ROW
-    tr.updating-row:hover{
-        background-color: unset;
-    }
-    tr.updating-row td{
-        padding: 0;
-    }
-    tr.updating-row td input,
-    tr.updating-row td select{
-        min-height: 25px;
-        font-size: 12.8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 15px;
+        border-radius: 5px;
         width: 100%;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        > div:first-of-type{
+            margin: 5px 0 15px 0;
+        }
+
+        .caption{
+            font-weight: 600;
+        }
+
+        .smaller-caption{
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        &:last-of-type{
+            margin-right: 0;
+        }
+
+        .card-icons{
+            height: 1.5em;
+            border-radius: 5px;
+            padding: 5px;
+            color: black;
+        }
     }
-    // update button
-    tr.updating-row td .btn-update-record{
-        font-size: unset;
-        border: unset
+    .card:last-of-type{
+        margin-right: 0px;
     }
+
 }
 
 
+// TRACKER BUTTONS - ADD, SUBMIT, UPDATE
+.btn-add-record,
+.btn-submit-record,
+.btn-update-record{
+
+    font-size: var(--font-size-caption);
+    background-color: #371CEF;
+    border: 1px solid #371CEF;
+    color: white;
+
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+
+    font-weight: 600;
+    appearance: none;
+
+    min-width: 150px;
+
+    &:hover{
+        color: #371CEF;
+        background-color: white;
+    }
+
+}
+
+// Add Button
+.btn-add-record{
+    margin-bottom: 5px;
+}
+// TRACKER INPUT FORM
 .tracker-input-form{
-    width: 100%;
-    margin: 10px 0;
 
     .tracker-input-form-container{
         display: flex;
     }
 
-    // all user inputs
-    > div > .user-input > select, 
-    > div > .user-input > input{
-        min-height: 25px;
-        font-size: 12.8px;
-        width: 100%;
-    }
-    .btn-submit-record{ // submit button
-        min-height: unset;
-        font-size: unset;
+    .user-input{
+
+        input, select{
+            width: 100%;
+            height: 100%;
+            font-size: 12.8px;
+        }
+        
     }
 
     .user-input:nth-of-type(1){ // record_date
@@ -130,56 +127,101 @@ $delete_width: 5%;
     }
 }
 
-.btn-submit-record{
-    margin-left: 10px;
-    max-height: 25px;
-}
 
-.btn-add-record,
-.btn-submit-record,
-.btn-update-record{
-    min-width: 100px;
-    border: 1px solid black;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
-
-    &:hover{
-        background-color: rgba(0, 0, 0, 0.2);
-        // transform: translate(2px, 2px);
-        // border-top: .1px solid black;
-        // border-left: .1px solid black;
-        // border-right: 3px solid black;
-        // border-bottom: 3px solid black;
-    }
-
+// Add Button
+.btn-add-record{
+    margin-bottom: 5px;
 }
 
 
-// TRACKER CARDS
-.tracker-cards-container{
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
+// TRACKER TABLE
+.table-container{
 
-    .card{
-        border: 1px solid black;
-        padding: 15px 20px;
-        margin-right: 40px;
-        border-radius: 12px;
+    width: 100%;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 
-        .card-flex{
-            display: flex;
-            align-items: center;
+    table{
 
-            .caption{
-                margin-left: 15px;
-                line-height: normal;
+        width: 100%;
+        border-collapse: collapse;
+        display: block;
+        
+        tr, td{
+            border: .5px solid rgba(0, 0, 0, 0.5);
+        }
+        thead tr:nth-of-type(1){
+            background-color: rgba(0, 0, 0, 0.2); // header background color
+        }
+        tr:hover{
+            background-color: rgba(0, 0, 0, 0.2); // row hover background color change
+        }
+    
+    
+        td:nth-of-type(1){ // record_date
+            width: $record_date_width;
+            padding-left: 5px;
+        }
+        td:nth-of-type(2){ // type_name
+            width: $type_name_width;
+            padding-left: 5px;
+        }
+        td:nth-of-type(3){ // category_name
+            width: $category_name_width;
+            padding-left: 5px;
+        }
+        td:nth-of-type(4){ // amount
+            width: $amount_width;
+            padding-right: 10px;
+            text-align: right;
+        }
+        td:nth-of-type(5){ // details
+            width: $details_width;
+            padding-left: 10px;
+        }
+        td:nth-of-type(6){ // edit button
+            width: $edit_width;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+    
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.2);
             }
         }
-    }
-    .card:last-of-type{
-        margin-right: 0px;
+        td:nth-of-type(7){ // delete button
+            width: $edit_width;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+    
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        }
+    
+    
+        // UPDATING ROW
+        tr.updating-row:hover{
+            background-color: unset;
+        }
+        tr.updating-row td{
+            padding: 0;
+        }
+        tr.updating-row td input,
+        tr.updating-row td select{
+            min-height: 25px;
+            font-size: 12.8px;
+            width: 100%;
+        }
+        // update button
+        tr.updating-row td .btn-update-record{
+            font-size: unset;
+            border: unset
+        }
     }
 
 }
