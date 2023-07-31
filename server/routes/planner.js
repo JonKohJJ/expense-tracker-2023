@@ -35,7 +35,7 @@ router.get("/getCategories/:type_id", (req,res) => {
         c.category_budget,
         count(record_id) as record_count
         from categories c
-        inner join records r
+        left join records r
         on c.category_id = r.category_id
         where c.type_id = ?
         group by c.category_id;

@@ -95,9 +95,35 @@
 
 .dashboard-body-container{
 
+    // .dashboard-inner-flex{
+    //     display: flex;
+    //     justify-content: space-between;
+    //     margin-bottom: 30px;
+
+    //     &:last-of-type{
+    //         margin-bottom: 0;
+    //     }
+    // }
+
+    // .dashboard-pie-charts{
+    //     width: 25%;
+    //     margin-right: 15px;
+    //     min-height: 200px;
+
+    //     .pie-chart{
+    //         width: 100%;
+    //         height: 100%;
+    //         border: 1px solid rgba(0, 0, 0, 0.1);
+    //         border-radius: 5px;
+    //         background-color: white;
+    //         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
+    //     }
+    // }
+
     .table-container{
-        margin-bottom: 30px;
+        
         width: 100%;
+        margin-bottom: 30px;
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         background-color: white;
@@ -244,106 +270,6 @@
             }
         }
     }
-
-    // body
-    // .dashboard-table-type{
-    //     margin-bottom: 50px;
-    //     border-collapse: collapse;
-    //     // border: .75px solid black;
-    //     width: 100%;
-        
-    //     &:last-of-type{
-    //         margin-bottom: 0;
-    //     }
-
-    //     thead{
-    //         color: white;
-    //     }
-
-    //     tbody tr td:first-of-type{
-    //         padding-left: 10px;
-    //     }
-    //     .td-percentage{
-    //         position: relative; 
-    //         overflow: hidden;
-    //         .td-percentage-progress-bar{
-    //             position: absolute;
-    //             top: 0;
-    //             left: 0;
-    //             height: 100%;
-    //             z-index: -1;
-    //         }
-    //     }
-    //     .category_exceeded{
-    //         background-color: rgba(255, 0, 0, 0.05);
-    //     }
-
-    //     tr{
-    //         border: 0.5px solid grey;
-    //     }
-    //     td{
-    //         border: 0.5px solid grey;
-    //         padding: 3px 5px;
-            
-    //         &:nth-of-type(1){
-    //             width: 25%;
-    //         }
-    //         &:nth-of-type(2){
-    //             width: 15%;
-    //             text-align: right;
-    //         }
-    //         &:nth-of-type(3){
-    //             width: 15%;
-    //             text-align: right;
-    //         }
-    //         &:nth-of-type(4){
-    //             width: 15%;
-    //             text-align: center;
-    //         }
-    //         &:nth-of-type(5){
-    //             width: 15%;
-    //             text-align: right;
-    //         }
-    //         &:nth-of-type(6){
-    //             width: 15%;
-    //             text-align: right;
-    //         }
-    //     }
-    // }
-
-    // // header colors
-    // .dashboard-table-type:nth-of-type(1){
-    //     & thead{
-    //         background-color: #239A5A;
-    //     }
-    //     & tbody .td-percentage-progress-bar{
-    //         background-color: hsla(148, 63%, 37%, 0.2);
-    //     }
-    // }
-    // .dashboard-table-type:nth-of-type(2){
-    //     & thead{
-    //         background-color: #286DEF;
-    //     }
-    //     & tbody .td-percentage-progress-bar{
-    //         background-color: hsla(219, 86%, 55%, 0.2);
-    //     }
-    // }
-    // .dashboard-table-type:nth-of-type(3){
-    //     & thead{
-    //         background-color: #FA0071;
-    //     }
-    //     & tbody .td-percentage-progress-bar{
-    //         background-color: hsla(333, 100%, 49%, 0.2);
-    //     }
-    // }
-    // .dashboard-table-type:nth-of-type(4){
-    //     & thead{
-    //         background-color: #FA0071;
-    //     }
-    //     & tbody .td-percentage-progress-bar{
-    //         background-color: hsla(333, 100%, 49%, 0.2);
-    //     }
-    // }
 
 }
 

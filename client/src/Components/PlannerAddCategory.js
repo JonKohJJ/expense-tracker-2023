@@ -35,8 +35,6 @@ export default function PlannerAddCategory({
         setUserInputs({ ...userInputs, [e.target.name]:e.target.value, type_id:type_id })
     }
 
-    
-
     const onSubmit = async (e) => {
         e.preventDefault();
         const result = formValidation(userInputs);
