@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreditCard, faPiggyBank, faSackDollar, faWallet } from "@fortawesome/free-solid-svg-icons"
 
-import '../sass-files/Dashboard.scss'
+import '../../sass-files/Dashboard.scss';
 
 import DashboardFilters from './DashboardFilters';
 
@@ -47,7 +47,7 @@ export default function DashboardCards({
                     </div>
                 </div>
                 <div>
-                    <p className="base-text smaller-caption">~</p>
+                    <p className="base-text smaller-caption">-</p>
                 </div>
             </div>
 
@@ -135,7 +135,7 @@ export default function DashboardCards({
                     </div>
                 </div>
                 <div>
-                    <p className="base-text smaller-caption">~</p>
+                    <p className="base-text smaller-caption">-</p>
                 </div>
             </div>
 

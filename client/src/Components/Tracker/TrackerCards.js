@@ -15,22 +15,13 @@ export default function TrackerCards({currentDate, lastRecordedDate, daysDiffere
                 <p className="headers h5">{currentDate}</p>
             </div>
             <div>
-                <p className="base-text smaller-caption">~</p>
+                <p className="base-text smaller-caption">
+                    {daysDifference > 1 ? <>{daysDifference} days since last record ({lastRecordedDate})</> : <>{daysDifference} day since last record ({lastRecordedDate})</>}
+                </p>
             </div>
         </div>
 
         <div className='card'>
-            <FontAwesomeIcon icon={faHandPointLeft} className='card-icons' />
-            <div>
-                <p className="base-text caption">Date of last record</p>
-                <p className="headers h5">{lastRecordedDate}</p>
-            </div>
-            <div>
-                <p className="base-text smaller-caption">
-                {daysDifference > 1 ? <>({daysDifference} days ago)</> : <>({daysDifference} day ago)</>}
-                </p>
-            </div>
-            
         </div>
 
         <div className='card'>

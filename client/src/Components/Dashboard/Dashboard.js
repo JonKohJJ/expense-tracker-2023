@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-import '../sass-files/App.scss';
+import '../../sass-files/Dashboard.scss';
 
 import DashboardCards from './DashboardCards';
 import DashboardBody from './DashboardBody';

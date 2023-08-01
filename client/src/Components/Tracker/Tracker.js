@@ -3,8 +3,8 @@ import axios from 'axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-import '../sass-files/App.scss';
-import '../sass-files/Tracker.scss';
+
+import '../../sass-files/Tracker.scss';
 
 import TrackerInputForm from './TrackerInputForm';
 import TrackerUpdateForm from './TrackerUpdateForm';

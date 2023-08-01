@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
+import '../../sass-files/Planner.scss';
 
 import PlannerBodyRow from './PlannerBodyRow';
 import PlannerAddCategory from './PlannerAddCategory';
 import PlannerUpdateForm from './PlannerUpdateForm';
-
-import '../sass-files/App.scss';
-import '../sass-files/Planner.scss';
-
-
 
 export default function Planner() {
 
