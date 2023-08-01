@@ -94,7 +94,7 @@ export default function TrackerInputForm({
                     min="2023-01-01" 
                     max="2030-12-31"
                     name='record_date'
-                    value={formValues.record_date}
+                    defaultValue={formValues.record_date}
                     onChange={handleChange}
                 >
                 </input>
@@ -107,7 +107,7 @@ export default function TrackerInputForm({
             <div className='user-input type'>
                 <select 
                     name='type_id'
-                    value={formValues.type_id}
+                    defaultValue={formValues.type_id}
                     onChange={(e) => {
                         fetchCategories(e.target.value);
                         handleChange(e);
@@ -125,7 +125,7 @@ export default function TrackerInputForm({
                     <>
                         <select
                             name='expenses_method'
-                            value={formValues.expenses_method}
+                            defaultValue={formValues.expenses_method}
                             onChange={handleChange}
                         >
                             <option selected hidden required>select expenses method</option>
@@ -145,7 +145,7 @@ export default function TrackerInputForm({
             <div className='user-input category'>
                 <select 
                     name='category_id'
-                    value={formValues.category_id}
+                    defaultValue={formValues.category_id}
                     onChange={handleChange}
                 >
                     <option selected hidden>select category</option> 
@@ -162,7 +162,7 @@ export default function TrackerInputForm({
             <div className='user-input amount'>
                 <input 
                     name='amount'
-                    value={formValues.amount}
+                    defaultValue={formValues.amount}
                     onChange={handleChange}
                     placeholder='amount'
                     type='number'
@@ -178,7 +178,7 @@ export default function TrackerInputForm({
             <div className='user-input details'>
                 <input 
                     name='details'
-                    value={formValues.details}
+                    defaultValue={formValues.details}
                     onChange={handleChange}
                     placeholder="details"
                 >
@@ -191,7 +191,7 @@ export default function TrackerInputForm({
 
             <input 
                 type="submit" 
-                value="Submit" 
+                defaultValue="Submit" 
                 className='btn-submit-record' 
                 onClick={onFormSubmit}
             />

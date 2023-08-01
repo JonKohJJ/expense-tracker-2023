@@ -23,8 +23,28 @@ function App() {
 
   // ===== logic to handle active nav links =====
   useEffect(() => {
-      const nav_links = document.querySelectorAll(".nav-links");
 
+      // check the current route - when user refreshes the page
+      let init_active_nav_link = window.location.href.split('/')[3];
+      switch(init_active_nav_link){
+          case "":
+            document.querySelector(".nav-links.overview").classList.add('active');
+            break;
+          case "savings":
+            document.querySelector(".nav-links.savings").classList.add('active');
+            break;
+          case "planner":
+            document.querySelector(".nav-links.planner").classList.add('active');
+            break;
+          case "tracker":
+            document.querySelector(".nav-links.tracker").classList.add('active');
+            break;
+          case "settings":
+            document.querySelector(".nav-links.settings").classList.add('active');
+            break;
+      }
+
+      const nav_links = document.querySelectorAll(".nav-links");
       for(let i = 0; i < nav_links.length; i++){
           nav_links[i].addEventListener('click', () => {
 
@@ -57,14 +77,17 @@ function App() {
 
             <div className='nav-links-div'>
               <p className='nav-titles'>Dashboard</p>
-              <Link className='nav-links active' to="/">
+
+              <Link className='nav-links overview' to="/">
                   <FontAwesomeIcon icon={faHouse} className='nav-icons' />
                   <p className="base-text">Overview</p>
               </Link>
-              <Link className='nav-links' to="/savings">
+
+              <Link className='nav-links savings' to="/savings">
                   <FontAwesomeIcon icon={faArrowTrendUp} className='nav-icons' />
                   <p className="base-text">Savings</p>
               </Link>
+
               {/* <Link className='nav-links' to="/typography">
                 <FontAwesomeIcon icon={faFont} className='nav-icons' />
                 <p className="base-text">Typography</p>
@@ -73,11 +96,13 @@ function App() {
 
             <div className='nav-links-div'>
               <p className='nav-titles'>Editor</p>
-              <Link className='nav-links' to="/planner">
+
+              <Link className='nav-links planner' to="/planner">
                   <FontAwesomeIcon icon={faTableColumns} className='nav-icons' />
                   <p className="base-text">Planner</p>
               </Link>
-              <Link className='nav-links' to="/tracker">
+
+              <Link className='nav-links tracker' to="/tracker">
                   <FontAwesomeIcon icon={faChartGantt} className='nav-icons' />
                   <p className="base-text">Tracker</p>
               </Link>
@@ -91,10 +116,12 @@ function App() {
             <div className='ads'></div>
             
             <div className='nav-links-div settings'>
-              <Link className='nav-links' to="/settings">
+
+              <Link className='nav-links settings' to="/settings">
                   <FontAwesomeIcon icon={faGear} className='nav-icons' />
                   <p className="base-text">Settings</p>
               </Link>
+              
             </div>
 
             <div className='horizontal-line'></div>
