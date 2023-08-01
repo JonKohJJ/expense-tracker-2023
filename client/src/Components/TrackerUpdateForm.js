@@ -113,6 +113,7 @@ export default function TrackerUpdateForm({
         <td>
             <select 
                 name='type_id'
+                className='updateform-type-select'
                 value={formValues.type_id}
                 onChange={(e) => {
                     fetchCategories(e.target.value);
@@ -135,6 +136,7 @@ export default function TrackerUpdateForm({
                 <>
                     <select
                         name='expenses_method'
+                        className='updateform-method-select'
                         value={formValues.expenses_method}
                         onChange={handleChange}
                     >
@@ -203,7 +205,7 @@ export default function TrackerUpdateForm({
         </td>
 
 
-        <td colSpan={2}>
+        <td>
             <input 
                 type="submit" 
                 value="Update"

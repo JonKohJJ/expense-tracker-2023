@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 
-import PlannerColumnHeaders from './PlannerColumnHeaders';
 import PlannerBodyRow from './PlannerBodyRow';
 import PlannerAddCategory from './PlannerAddCategory';
 import PlannerUpdateForm from './PlannerUpdateForm';
@@ -114,60 +113,77 @@ export default function Planner() {
     <div className='component planner'>
       <p className="headers h4">Planner</p>
 
-        <div className='tables-wrapper'>
-          {bodyData.map(type => {
-            return(
-              <>
-                <table key={type.type_id} className={'types-table ' + type.type_name}>
+      <div className='planner-cards-container'>
 
-                  <thead>
-                    <PlannerColumnHeaders type={type}/>
-                  </thead>
-
-                  <tbody>
-                    { type.categories === undefined ? 
-                        <></> : 
-                        type.categories.map(category => (
-                          // PlannerBodyRow - category name, budgets
-                          updateId === category.category_id ?
-                            <PlannerUpdateForm
-                              category={category}
-
-                              type={type}
-                              formValidation={formValidation}
-
-                              messageCategoryName={messageCategoryName}
-                              setMessageCategoryName={setMessageCategoryName}
-
-                              messageCategoryBudget={messageCategoryBudget}
-                              setMessageCategoryBudget={setMessageCategoryBudget}
-                            />
-                          :
-                            <PlannerBodyRow 
-                              category={category} 
-                              handleUpdate={handleUpdate} 
-                              handleDelete={handleDelete}/>
-                        ))
-                    }
-                  </tbody>
-
-                </table>
-
-                <PlannerAddCategory 
-                  type={type}
-                  formValidation={formValidation}
-
-                  messageCategoryName={messageCategoryName}
-                  setMessageCategoryName={setMessageCategoryName}
-
-                  messageCategoryBudget={messageCategoryBudget}
-                  setMessageCategoryBudget={setMessageCategoryBudget}
-
-                />
-              </>
-            )
-          })}
+        <div className='card'>
         </div>
+
+        <div className='card'>
+        </div>
+
+        <div className='card'>
+        </div>
+
+        <div className='card'>
+        </div>
+
+      </div>
+
+      {bodyData.map(type => {
+        return(
+          <div className='planner-table-container'>
+            <table key={type.type_id} className={'types-table ' + type.type_name}>
+
+                <tr className={"table-title " + type.type_id}><p className='headers h5'>{type.type_name}</p></tr>
+                <tr className='table-headers'>
+                    <td><p className='base-text smaller-caption'>Categories</p></td>
+                    <td><p className='base-text smaller-caption'>Budget</p></td>
+                    <td colSpan={2}><p className='base-text smaller-caption'>Actions</p></td>
+                </tr>
+
+                <tbody>
+                  { type.categories === undefined ? 
+                      <></> : 
+                      type.categories.map(category => (
+                        // PlannerBodyRow - category name, budgets
+                        updateId === category.category_id ?
+                          <PlannerUpdateForm
+                            category={category}
+
+                            type={type}
+                            formValidation={formValidation}
+
+                            messageCategoryName={messageCategoryName}
+                            setMessageCategoryName={setMessageCategoryName}
+
+                            messageCategoryBudget={messageCategoryBudget}
+                            setMessageCategoryBudget={setMessageCategoryBudget}
+                          />
+                        :
+                          <PlannerBodyRow 
+                            category={category} 
+                            handleUpdate={handleUpdate} 
+                            handleDelete={handleDelete}/>
+                      ))
+                  }
+                </tbody>
+
+            </table>
+
+            {/* <PlannerAddCategory 
+              type={type}
+              formValidation={formValidation}
+
+              messageCategoryName={messageCategoryName}
+              setMessageCategoryName={setMessageCategoryName}
+
+              messageCategoryBudget={messageCategoryBudget}
+              setMessageCategoryBudget={setMessageCategoryBudget}
+            /> */}
+
+          </div>
+        )
+      })}
 
     </div>
   )

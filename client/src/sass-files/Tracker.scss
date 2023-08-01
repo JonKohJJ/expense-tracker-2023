@@ -1,10 +1,10 @@
 $record_date_width: 7%;
 $type_name_width: 13%;
 $category_name_width: 20%;
-$amount_width: 9%;
-$details_width: 41%;
-$edit_width: 5%;
-$delete_width: 5%;
+$amount_width: 7%;
+$details_width: 45%;
+$edit_width: 4%;
+$delete_width: 4%;
 
 
 // TRACKER CARDS
@@ -33,7 +33,7 @@ $delete_width: 5%;
             margin: 5px 0 15px 0;
         }
 
-        .caption{
+        .caption, .headers{
             font-weight: 600;
         }
 
@@ -57,7 +57,6 @@ $delete_width: 5%;
     }
 
 }
-
 
 // TRACKER BUTTONS - ADD, SUBMIT, UPDATE
 .btn-add-record,
@@ -85,11 +84,11 @@ $delete_width: 5%;
     }
 
 }
-
-// Add Button
-.btn-add-record{
-    margin-bottom: 5px;
+.btn-update-record{
+    min-width: 100%;
 }
+
+
 // TRACKER INPUT FORM
 .tracker-input-form{
 
@@ -105,6 +104,11 @@ $delete_width: 5%;
             font-size: 12.8px;
         }
         
+    }
+
+    .type{
+        display:flex;
+        flex-direction: column;
     }
 
     .user-input:nth-of-type(1){ // record_date
@@ -138,28 +142,80 @@ $delete_width: 5%;
 .table-container{
 
     width: 100%;
-    margin-bottom: 30px;
+    margin-top: 5px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 
-    table{
+    .tracker-table{
 
         width: 100%;
         border-collapse: collapse;
         display: block;
+
+        tr{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border: .5px solid rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease-in-out;
+
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+        td{
+            // border-left: 1px solid red;
+            // border-right: 1px solid red;
+        }
+        tbody,
+        tfoot{
+            width: 100%;
+            display: block;
+        }
+
+        .table-title{
+            padding: 15px 20px;
+            p{
+                font-weight: 600;
+            }
+
+            &:hover{
+                background-color: transparent;
+            }
+        }
+        .table-headers{
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 10px 20px; 
+
+            td{
+                font-weight: 600;
+                color: rgba(0, 0, 0, 0.5);
+            }
+
+            td:nth-of-type(6){ // 'actions'
+                width: calc($edit_width * 2);
         
-        tr, td{
-            border: .5px solid rgba(0, 0, 0, 0.5);
+                &:hover{
+                    background-color: transparent;
+                    color: rgba(0, 0, 0, 0.5);
+                    cursor: auto;
+                }
+            }
+
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.1);
+            }
         }
-        thead tr:nth-of-type(1){
-            background-color: rgba(0, 0, 0, 0.2); // header background color
+        tbody{
+            tr{
+                padding: 0px 20px;
+            }
+            td{
+                padding: 2px 0;
+            }
         }
-        tr:hover{
-            background-color: rgba(0, 0, 0, 0.2); // row hover background color change
-        }
-    
     
         td:nth-of-type(1){ // record_date
             width: $record_date_width;
@@ -189,7 +245,8 @@ $delete_width: 5%;
             transition: all 0.1s ease-in-out;
     
             &:hover{
-                background-color: rgba(0, 0, 0, 0.2);
+                background-color: #371CEF;
+                color: white;
             }
         }
         td:nth-of-type(7){ // delete button
@@ -199,28 +256,44 @@ $delete_width: 5%;
             transition: all 0.1s ease-in-out;
     
             &:hover{
-                background-color: rgba(0, 0, 0, 0.2);
+                background-color: #371CEF;
+                color: white;
             }
         }
     
     
         // UPDATING ROW
-        tr.updating-row:hover{
-            background-color: unset;
-        }
-        tr.updating-row td{
-            padding: 0;
-        }
-        tr.updating-row td input,
-        tr.updating-row td select{
-            min-height: 25px;
-            font-size: 12.8px;
-            width: 100%;
-        }
-        // update button
-        tr.updating-row td .btn-update-record{
-            font-size: unset;
-            border: unset
+        .updating-row{
+
+            display: flex;
+            align-items: stretch;
+            // border-top: 0.5px solid #371CEF;
+            // border-bottom: 0.5px solid #371CEF;
+
+            &:hover{
+                background-color: unset;
+            }
+
+            td{
+                padding: 0px;
+            }
+
+            input, select{
+                width: 100%;
+                height: 100%;
+                font-size: 12.8px;
+            }
+
+            .updateform-type-select, .updateform-method-select{
+                height: 50%;
+            }
+
+            td:nth-of-type(6){ // td with update button inside
+                width: calc($edit_width * 2);
+                background: none;
+                padding-left: 10px;
+            }
+
         }
     }
 

@@ -245,6 +245,7 @@ export default function Tracker() {
             <td><p className='base-text smaller-caption'>Category</p></td>
             <td><p className='base-text smaller-caption'>Amount</p></td>
             <td><p className='base-text smaller-caption'>Details</p></td>
+            <td colSpan={2}><p className='base-text smaller-caption'>Actions</p></td>
         </tr>
 
         <tbody>
@@ -307,7 +308,9 @@ export default function Tracker() {
           
         </table>
 
-      </div>
+    </div>
+
+    
     </div>
   )
 }
