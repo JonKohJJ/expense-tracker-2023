@@ -27,7 +27,7 @@ export default function DashboardBody({dashboardBodyData, dashboardFooterData})
                             <tbody>
                                 {type.categories.map((category, index) => {
 
-                                    if(Math.round(category["% completed"]) > 100){
+                                    if(category["% completed"] > 100){
                                         return(
                                             <tr className='category_exceeded'>
                                                 <td><p className="base-text caption">{category.category_name}</p></td>

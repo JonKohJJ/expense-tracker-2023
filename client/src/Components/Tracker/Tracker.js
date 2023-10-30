@@ -234,7 +234,6 @@ export default function Tracker() {
                           /> : <></>
       }
 
-
     <div className='table-container'>
         <table className='tracker-table'>
 
@@ -310,7 +309,6 @@ export default function Tracker() {
 
     </div>
 
-    
     </div>
   )
 }

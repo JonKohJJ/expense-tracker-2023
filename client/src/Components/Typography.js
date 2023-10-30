@@ -1,5 +1,4 @@
 import React from 'react'
-
 import '../sass-files/Typography.scss'
 
 export default function Typography() {
